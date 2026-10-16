@@ -13,7 +13,7 @@
     "graph": "nx graph"
   },
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "dependencies": {
     "@angular/animations": "~16.2.0",

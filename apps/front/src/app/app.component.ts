@@ -1,12 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
-
-interface ApiInfo {
-  name: string;
-  version: string;
-  message: string;
-}
+import { BackendReadyService } from './core/services/backend-ready.service';
 
 @Component({
   selector: 'app-root',
@@ -14,16 +7,31 @@ interface ApiInfo {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'CertiSmart';
-  apiInfo: ApiInfo | null = null;
-  apiError = false;
+  activeStep = 0;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly backend: BackendReadyService) {}
 
   ngOnInit(): void {
-    this.http.get<ApiInfo>(`${environment.apiUrl}/`).subscribe({
-      next: (info) => (this.apiInfo = info),
-      error: () => (this.apiError = true),
-    });
+    this.backend.waitForBackend();
+  }
+
+  get ready(): boolean {
+    return this.backend.ready();
+  }
+
+  get progress(): number {
+    return this.backend.progress();
+  }
+
+  get offline(): boolean {
+    return this.backend.offline();
+  }
+
+  onStepSelected(step: number): void {
+    this.activeStep = step;
+  }
+
+  onRetry(): void {
+    this.backend.reset();
   }
 }

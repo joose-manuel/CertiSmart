@@ -1,0 +1,127 @@
+<section class="step">
+  <div class="toolbar">
+    <div class="toolbar__file">
+      <span class="toolbar__file-icon"><i class="pi pi-file"></i></span>
+      <div>
+        <div class="toolbar__file-name">
+          <span class="toolbar__name">{{ archivo }}</span>
+          <p-tag value="Procesado" severity="success"></p-tag>
+        </div>
+        <div class="toolbar__file-meta">
+          Total registros:
+          <strong>{{ resumen.total }}</strong> estudiantes ·
+          {{ mapeo.length }} campos mapeados
+        </div>
+      </div>
+    </div>
+
+
+    <div class="toolbar__actions">
+      <p-button
+        label="Cargar otro"
+        icon="pi pi-arrow-left"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="onRetroceder()"
+      ></p-button>
+      <p-button
+        label="Continuar a Plantilla"
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        (onClick)="onContinuar()"
+      ></p-button>
+    </div>
+  </div>
+
+  <div class="banner banner--warn" *ngIf="resumen.errores > 0">
+    <span class="banner__icon"><i class="pi pi-exclamation-triangle"></i></span>
+    <div class="banner__text">
+      <strong>{{ textoBannerError }}</strong> Se detectaron
+      <strong>{{ resumen.errores }} registros con inconsistencias</strong>
+      (documento, universidad, asignaturas o notas con novedades). Corrígelos
+      con el botón "Corregir" sin volver a cargar el Excel.
+    </div>
+    <p-button
+      label="Ver errores"
+      severity="warn"
+      size="small"
+      (onClick)="filtro = 'errors'"
+    ></p-button>
+  </div>
+
+  <div class="banner banner--ok" *ngIf="resumen.errores === 0">
+    <span class="banner__icon"><i class="pi pi-check-circle"></i></span>
+    <div class="banner__text">{{ textoSinErrores }}</div>
+    <p-button
+      label="Continuar"
+      severity="success"
+      size="small"
+      icon="pi pi-arrow-right"
+      iconPos="right"
+      (onClick)="onContinuar()"
+    ></p-button>
+  </div>
+
+  <div class="card">
+    <div class="card__toolbar">
+      <p-selectButton
+        [options]="opcionesFiltro"
+        [(ngModel)]="filtro"
+        optionLabel="label"
+        optionValue="value"
+      ></p-selectButton>
+
+      <div class="card__actions">
+        <span class="p-input-icon-left search">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            [placeholder]="placeholder"
+            [(ngModel)]="busqueda"
+          />
+        </span>
+        <p-button
+          [label]="etiquetaAutoformato"
+          icon="pi pi-wrench"
+          severity="secondary"
+          [outlined]="true"
+          size="small"
+          (onClick)="onAutoFormato()"
+        ></p-button>
+      </div>
+    </div>
+
+    <app-students-table
+      [estudiantes]="filtrados"
+      (seleccion)="onSeleccion($event)"
+      (seleccionTodos)="onSeleccionTodos($event)"
+      (editar)="onEditar($event)"
+    ></app-students-table>
+
+    <div class="card__foot">
+      <span class="card__foot-info">
+        Mostrando <strong>{{ totalMostrados }}</strong> registros ·
+        <strong class="accent">
+          {{ seleccionadosCount }} seleccionados
+        </strong>
+      </span>
+      <span class="card__foot-errors" *ngIf="resumen.errores > 0">
+        <i class="pi pi-exclamation-circle"></i>
+        {{ resumen.errores }} estudiantes pendientes de corrección
+      </span>
+      <p-button
+        label="Continuar a Plantilla y Vista Previa"
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        (onClick)="onContinuar()"
+      ></p-button>
+    </div>
+  </div>
+</section>
+
+<app-student-edit-dialog
+  [(visible)]="dialogoVisible"
+  [estudiante]="estudianteEditando"
+  (guardar)="onGuardar($event)"
+></app-student-edit-dialog>

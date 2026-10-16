@@ -1,0 +1,39 @@
+<div class="loading-screen">
+  <div class="loading-screen__aurora"></div>
+  <div class="loading-screen__card">
+    <div class="loading-screen__logo">
+      <span>Certi</span><strong>Smart</strong>
+    </div>
+    <h1 class="loading-screen__title">Preparando el servidor</h1>
+    <p class="loading-screen__subtitle">
+      Estamos despertando el backend en Render. Puede tardar unos segundos la
+      primera vez.
+    </p>
+
+    <div class="loading-screen__stage">
+      <div class="loading-screen__ring"></div>
+      <div class="loading-screen__dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="loading-screen__progress">
+      <div class="loading-screen__progress-bar" [style.width.%]="progress">
+      </div>
+    </div>
+    <p class="loading-screen__status">
+      <ng-container *ngIf="!offline">
+        {{ progress }}% · Sin cerrar esta ventana
+      </ng-container>
+      <ng-container *ngIf="offline">
+        No se pudo despertar el backend. Puedes continuar de todos modos.
+      </ng-container>
+    </p>
+
+    <div class="loading-screen__actions" *ngIf="offline">
+      <button type="button" class="loading-screen__btn" (click)="retry.emit()">
+        Reintentar
+      </button>
+    </div>
+  </div>
+</div>

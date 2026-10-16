@@ -1,0 +1,275 @@
+<section class="step">
+  <div class="subheader">
+    <div class="subheader__info">
+      <span class="subheader__icon"><i class="pi pi-box"></i></span>
+      <div>
+        <h2 class="subheader__title">{{ titulo }}</h2>
+        <p class="subheader__subtitle">{{ subtitulo }}</p>
+      </div>
+    </div>
+
+    <div class="subheader__actions">
+      <p-button
+        [label]="etiquetaVolver"
+        icon="pi pi-arrow-left"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="onRetroceder()"
+      ></p-button>
+      <p-button
+        [label]="etiquetaGenerar"
+        icon="pi pi-bolt"
+        [loading]="fase === 'generando'"
+        [disabled]="!puedeGenerar"
+        (onClick)="generar()"
+      ></p-button>
+    </div>
+  </div>
+
+  <div class="panel panel--progreso" *ngIf="fase === 'generando'">
+    <div class="panel__head">
+      <span class="panel__icon panel__icon--brand">
+        <i class="pi pi-spin pi-spinner"></i>
+      </span>
+      <div>
+        <strong class="panel__title">{{ etiquetaGenerando }}</strong>
+        <span class="panel__subtitle">{{ pasoDetalle }}</span>
+      </div>
+      <span class="panel__porcentaje">{{ progreso }}%</span>
+    </div>
+    <p-progressBar
+      [value]="progreso"
+      [showValue]="false"
+      styleClass="panel__bar"
+    ></p-progressBar>
+    <p class="panel__nota">
+      <i class="pi pi-info-circle"></i> {{ textoGenerando }}
+    </p>
+  </div>
+
+  <div class="panel panel--listo" *ngIf="fase === 'listo' && lote">
+    <div class="panel__head">
+      <span class="panel__icon panel__icon--ok"><i class="pi pi-check"></i></span>
+      <div>
+        <strong class="panel__title">{{ tituloLoteListo }}</strong>
+        <span class="panel__subtitle">{{ textoLoteListo }}</span>
+      </div>
+    </div>
+
+    <div class="datos">
+      <div class="dato">
+        <span class="dato__label">{{ etiquetasLote.zip }}</span>
+        <span class="dato__value mono">{{ lote.nombreZip }}</span>
+      </div>
+      <div class="dato">
+        <span class="dato__label">{{ etiquetasLote.actas }}</span>
+        <span class="dato__value">{{ lote.total }}</span>
+      </div>
+      <div class="dato">
+        <span class="dato__label">{{ etiquetasLote.folios }}</span>
+        <span class="dato__value mono">
+          {{ lote.folioInicial }} → {{ lote.folioFinal }}
+        </span>
+      </div>
+      <div class="dato">
+        <span class="dato__label">{{ etiquetasLote.tamano }}</span>
+        <span class="dato__value">{{ lote.pesoLegible }}</span>
+      </div>
+      <div class="dato">
+        <span class="dato__label">{{ etiquetasLote.hash }}</span>
+        <span class="dato__value mono" [title]="lote.hashLote">
+          {{ lote.hashLoteCorto }}
+        </span>
+      </div>
+      <div class="dato">
+        <span class="dato__label">{{ etiquetasLote.generado }}</span>
+        <span class="dato__value">
+          {{ lote.generadoEn }} · vigencia {{ lote.vigenciaMin }} min
+        </span>
+      </div>
+    </div>
+
+    <div class="panel__acciones">
+      <p-button
+        [label]="etiquetaDescargarZip"
+        icon="pi pi-download"
+        size="large"
+        (onClick)="descargarZip()"
+      ></p-button>
+      <p-button
+        [label]="etiquetaNuevoLote"
+        icon="pi pi-refresh"
+        severity="secondary"
+        [text]="true"
+        (onClick)="onNuevoLote()"
+      ></p-button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div
+      class="stat"
+      *ngFor="let stat of estadisticas"
+      [ngClass]="'stat--' + stat.tono"
+    >
+      <span class="stat__icon"><i [ngClass]="stat.icono"></i></span>
+      <span class="stat__label">{{ stat.etiqueta }}</span>
+      <span class="stat__value mono">{{ stat.valor }}</span>
+      <span class="stat__detail">{{ stat.detalle }}</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="layout__left">
+      <div class="card">
+        <h3 class="card__title">
+          <i class="pi pi-sliders-h"></i> {{ etiquetaAlcance }}
+        </h3>
+
+        <div class="field">
+          <span class="field__label">{{ etiquetaModo }}</span>
+          <div class="modos" role="radiogroup" [attr.aria-label]="etiquetaModo">
+            <button
+              type="button"
+              class="modo"
+              *ngFor="let opcion of opcionesModo"
+              [class.modo--activo]="modo === opcion.value"
+              role="radio"
+              [attr.aria-checked]="modo === opcion.value"
+              (click)="onSeleccionarModo(opcion.value)"
+            >
+              <span class="modo__radio"></span>
+              <span class="modo__text">
+                <span class="modo__label">{{ opcion.label }}</span>
+                <span class="modo__detalle">{{ opcion.detalle }}</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="rango" *ngIf="modo === 'range'">
+          <div class="field">
+            <label class="field__label">{{ etiquetaDesde }}</label>
+            <p-inputNumber
+              [ngModel]="desde"
+              [min]="1"
+              [max]="totalRegistros"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              decrementButtonIcon="pi pi-minus"
+              incrementButtonIcon="pi pi-plus"
+              styleClass="w-full"
+              (onInput)="onRangoInput('desde', $event)"
+              (onBlur)="onRangoBlur('desde', $event)"
+            ></p-inputNumber>
+          </div>
+          <div class="field">
+            <label class="field__label">{{ etiquetaHasta }}</label>
+            <p-inputNumber
+              [ngModel]="hasta"
+              [min]="1"
+              [max]="totalRegistros"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              decrementButtonIcon="pi pi-minus"
+              incrementButtonIcon="pi pi-plus"
+              styleClass="w-full"
+              (onInput)="onRangoInput('hasta', $event)"
+              (onBlur)="onRangoBlur('hasta', $event)"
+            ></p-inputNumber>
+          </div>
+          <p class="field__hint" [class.field__hint--error]="rangoInvalido">
+            {{ rangoInvalido ? textoRangoInvalido : ayudaRango }}
+          </p>
+        </div>
+
+        <div class="field">
+          <label class="field__label">
+            {{ etiquetaFormato }}
+            <p-tag
+              *ngIf="formato === formatoRecomendado"
+              [value]="etiquetaRecomendada"
+              severity="success"
+              styleClass="field__tag"
+            ></p-tag>
+          </label>
+          <p-dropdown
+            [options]="formatos"
+            optionLabel="label"
+            optionValue="value"
+            [(ngModel)]="formato"
+            [appendTo]="'body'"
+            styleClass="w-full"
+            (onChange)="onChangeFormato()"
+          ></p-dropdown>
+          <p class="field__hint">
+            {{ etiquetaEjemplo }}
+            <span class="mono">{{ filas[0]?.archivo || '—' }}</span>
+          </p>
+        </div>
+
+        <div class="aviso" *ngIf="excluidos.invalidos > 0 || excluidos.fueraDeAlcance > 0">
+          <i class="pi pi-exclamation-triangle"></i>
+          <span>
+            <strong>{{ excluidos.invalidos }}</strong> registros con
+            inconsistencias y
+            <strong>{{ excluidos.fueraDeAlcance }}</strong> fuera del alcance
+            quedan {{ etiquetaExcluidos }}.
+          </span>
+        </div>
+
+        <div class="field">
+          <label class="field__label">{{ etiquetaPaquete }}</label>
+          <input
+            pInputText
+            type="text"
+            class="w-full"
+            [placeholder]="nombreZipFinal"
+            [(ngModel)]="nombrePaquete"
+          />
+          <p class="field__hint">
+            {{ ayudaPaquete }} → <span class="mono">{{ nombreZipFinal }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout__right">
+      <div class="card card--flush">
+        <div class="card__head">
+          <div>
+            <h3 class="card__title">
+              <i class="pi pi-list"></i> {{ tituloIndice }}
+            </h3>
+            <p class="card__subtitle">{{ descripcionIndice }}</p>
+          </div>
+          <p-tag [value]="filas.length + ' ' + etiquetaActas" severity="info"></p-tag>
+        </div>
+
+        <app-actas-index-table
+          [filas]="filas"
+          (descargar)="onDescargarActa($event)"
+        ></app-actas-index-table>
+
+        <div class="card__foot">
+          <span class="card__foot-info" *ngIf="filas.length">
+            Folios
+            <strong class="mono">{{ filas[0].folio }}</strong> a
+            <strong class="mono">{{ filas[filas.length - 1].folio }}</strong>
+            · {{ filas.length }} constancias
+          </span>
+          <span class="card__foot-info card__foot-info--warn" *ngIf="!filas.length">
+            <i class="pi pi-exclamation-triangle"></i> {{ textoAlcanceVacio }}
+          </span>
+          <p-button
+            [label]="etiquetaGenerar"
+            icon="pi pi-bolt"
+            [loading]="fase === 'generando'"
+            [disabled]="!puedeGenerar"
+            (onClick)="generar()"
+          ></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

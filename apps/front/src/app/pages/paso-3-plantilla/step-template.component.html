@@ -1,0 +1,153 @@
+<section class="step">
+  <div class="subheader">
+    <div class="subheader__info">
+      <span class="subheader__icon"><i class="pi pi-file-edit"></i></span>
+      <div>
+        <h2 class="subheader__title">{{ titulo }}</h2>
+        <p class="subheader__subtitle">{{ subtitulo }}</p>
+      </div>
+    </div>
+
+    <div class="subheader__actions">
+      <p-button
+        label="Volver al Validador"
+        icon="pi pi-arrow-left"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="onRetroceder()"
+      ></p-button>
+      <p-button
+        label="Aprobar y Exportar"
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        (onClick)="onContinuar()"
+      ></p-button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="layout__left">
+      <div class="card">
+        <div class="card__row">
+          <span class="card__row-label">
+            <i class="pi pi-user"></i> {{ etiquetaEstudiante }}
+          </span>
+          <div class="navigator">
+            <p-button
+              icon="pi pi-chevron-left"
+              severity="secondary"
+              [outlined]="true"
+              size="small"
+              (onClick)="anterior()"
+            ></p-button>
+            <span class="navigator__badge">
+              {{ previewIndex + 1 }} / {{ total }}
+            </span>
+            <p-button
+              icon="pi pi-chevron-right"
+              severity="secondary"
+              [outlined]="true"
+              size="small"
+              (onClick)="siguiente()"
+            ></p-button>
+          </div>
+        </div>
+
+        <p-dropdown
+          [options]="opcionesEstudiantes"
+          optionLabel="label"
+          optionValue="value"
+          [filter]="true"
+          filterBy="label"
+          [ngModel]="previewIndex"
+          (onChange)="onEstudianteChange($event.value)"
+          styleClass="w-full"
+          [appendTo]="'body'"
+        ></p-dropdown>
+
+        <p class="card__hint">
+          <i class="pi pi-info-circle"></i> {{ textoVistaPrevia }}
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="card__title">
+          <i class="pi pi-sliders-h"></i> {{ etiquetaAjustes }}
+        </h3>
+
+        <div class="field">
+          <label class="field__label">{{ etiquetaFolio }}</label>
+          <div class="input-affix">
+            <span class="input-affix__prefix">{{ folioPrefijo }}</span>
+            <p-inputNumber
+              [(ngModel)]="config.folioInicial"
+              [min]="1"
+              [useGrouping]="false"
+              styleClass="w-full"
+            ></p-inputNumber>
+          </div>
+          <p class="field__hint">{{ ayudaFolio }}</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label">{{ etiquetaFecha }}</label>
+          <p-calendar
+            [(ngModel)]="config.fechaExpedicion"
+            dateFormat="yy-mm-dd"
+            dataType="string"
+            [showIcon]="true"
+            appendTo="body"
+            styleClass="w-full"
+          ></p-calendar>
+        </div>
+
+        <div class="sellos">
+          <span class="sellos__title">{{ tituloSellos }}</span>
+
+          <label class="sello">
+            <span class="sello__text">
+              <i class="pi pi-qrcode"></i> {{ etiquetaQr }}
+            </span>
+            <p-inputSwitch [(ngModel)]="config.codigoQr"></p-inputSwitch>
+          </label>
+
+          <label class="sello">
+            <span class="sello__text">
+              <i class="pi pi-building"></i> {{ etiquetaMarcaAgua }}
+            </span>
+            <p-inputSwitch [(ngModel)]="config.marcaAgua"></p-inputSwitch>
+          </label>
+
+          <label class="sello">
+            <span class="sello__text">
+              <i class="pi pi-clock"></i> {{ etiquetaEstampada }}
+            </span>
+            <p-inputSwitch [(ngModel)]="config.estampaTiempo"></p-inputSwitch>
+          </label>
+        </div>
+
+        <div class="card__actions">
+          <p-button
+            label="Descargar Muestra (PDF)"
+            icon="pi pi-download"
+            severity="secondary"
+            [outlined]="true"
+            size="small"
+            (onClick)="descargarMuestra()"
+          ></p-button>
+          <p-button
+            label="Aprobar Plantilla"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            size="small"
+            (onClick)="onContinuar()"
+          ></p-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout__right">
+      <app-acta-preview [acta]="acta" [sellos]="sellos"></app-acta-preview>
+    </div>
+  </div>
+</section>

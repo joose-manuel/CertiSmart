@@ -1,0 +1,100 @@
+:host {
+  display: block;
+}
+
+.index-table {
+  font-size: 0.8125rem;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.muted {
+  color: var(--cs-text-muted);
+}
+
+.col-center {
+  text-align: center;
+}
+
+.ahora {
+  white-space: nowrap;
+}
+
+.truncar {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.col-num {
+  width: 3rem;
+  font-size: 0.6875rem;
+}
+
+.programa {
+  max-width: 11rem;
+}
+
+.archivo {
+  font-size: 0.6875rem;
+  color: #155e75;
+  max-width: 15rem;
+}
+
+.hash {
+  font-size: 0.6875rem;
+  color: #64748b;
+}
+
+:host ::ng-deep .index-table thead th {
+  background: #f8fafc;
+  color: var(--cs-text-muted);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .index-table .p-datatable-wrapper {
+  overflow-x: auto;
+}
+
+:host ::ng-deep .index-table tbody tr.row--observada {
+  background: rgba(255, 251, 235, 0.7);
+  box-shadow: inset 4px 0 0 #f59e0b;
+}
+
+:host ::ng-deep .index-table tbody tr.row--observada:hover {
+  background: #fef3c7;
+}
+
+:host ::ng-deep .index-table .p-button.p-button-rounded {
+  width: 2rem;
+  height: 2rem;
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #94a3b8;
+}
+
+.empty i {
+  font-size: 1.75rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #cbd5e1;
+}
+
+.empty p {
+  margin: 0;
+  font-weight: 500;
+}

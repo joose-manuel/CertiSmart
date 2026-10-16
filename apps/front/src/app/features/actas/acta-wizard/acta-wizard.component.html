@@ -1,0 +1,40 @@
+<div class="wizard">
+  <div class="wizard__guard" *ngIf="activeStep !== pasoCarga && !hayDatos">
+    <i class="pi pi-info-circle wizard__guard-icon"></i>
+    <h3 class="wizard__guard-title">Sin nómina cargada</h3>
+    <p class="wizard__guard-text">
+      Carga un archivo de Excel para habilitar la validación, la vista previa y
+      la exportación de actas.
+    </p>
+    <p-button
+      label="Ir a Carga de documento"
+      icon="pi pi-cloud-upload"
+      (onClick)="onRetroceder()"
+    ></p-button>
+  </div>
+
+  <ng-container *ngIf="hayDatos || activeStep === pasoCarga">
+    <app-step-upload
+      *ngIf="activeStep === pasoCarga"
+      (cargaCompletada)="onCargaCompletada()"
+    ></app-step-upload>
+
+    <app-step-validate
+      *ngIf="activeStep === pasoValidacion"
+      (continuar)="onContinuar()"
+      (retroceder)="onRetroceder()"
+    ></app-step-validate>
+
+    <app-step-template
+      *ngIf="activeStep === pasoPlantilla"
+      (continuar)="onContinuar()"
+      (retroceder)="onRetroceder()"
+    ></app-step-template>
+
+    <app-step-export
+      *ngIf="activeStep === pasoExportacion"
+      (retroceder)="onRetroceder()"
+      (nuevoLote)="onNuevoLote()"
+    ></app-step-export>
+  </ng-container>
+</div>

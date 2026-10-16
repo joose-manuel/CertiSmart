@@ -1,21 +1,20 @@
-<main class="hero">
-  <h1>{{ title }}</h1>
-  <p class="subtitle">Monorepo Nx · Angular 16 + NestJS</p>
+<app-loading-screen
+  *ngIf="!ready"
+  [progress]="progress"
+  [offline]="offline"
+  (retry)="onRetry()"
+></app-loading-screen>
 
-  <section class="card" *ngIf="apiInfo; else status">
-    <h2>Backend conectado</h2>
-    <p>{{ apiInfo.message }}</p>
-    <small>{{ apiInfo.name }} · v{{ apiInfo.version }}</small>
-  </section>
+<ng-container *ngIf="ready">
+  <app-header
+    [activeStep]="activeStep"
+    (stepSelected)="onStepSelected($event)"
+  ></app-header>
 
-  <ng-template #status>
-    <section class="card">
-      <p *ngIf="apiError; else loading">
-        No se pudo conectar con el backend ({{ apiError }}).
-      </p>
-      <ng-template #loading>
-        <p>Conectando con el backend…</p>
-      </ng-template>
-    </section>
-  </ng-template>
-</main>
+  <app-acta-wizard
+    [activeStep]="activeStep"
+    (stepChange)="onStepSelected($event)"
+  ></app-acta-wizard>
+</ng-container>
+
+<p-toast position="top-right"></p-toast>

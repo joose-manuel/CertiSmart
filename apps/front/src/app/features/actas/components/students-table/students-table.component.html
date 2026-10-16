@@ -1,0 +1,84 @@
+<p-table
+  [value]="estudiantes"
+  [paginator]="true"
+  [rows]="filas"
+  [rowsPerPageOptions]="opcionesFilas"
+  styleClass="students-table"
+  [tableStyle]="{ 'min-width': '58rem' }"
+  responsiveLayout="scroll"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="col-check">
+        <p-checkbox
+          [binary]="true"
+          [ngModel]="todosSeleccionados"
+          (onChange)="onSeleccionTodos($event.checked)"
+        ></p-checkbox>
+      </th>
+      <th>Documento (C.C.)</th>
+      <th>Estudiante (Nombre Completo)</th>
+      <th>Universidad de Origen</th>
+      <th class="col-center">Asignaturas / Notas</th>
+      <th>Estado de Validación</th>
+      <th class="col-center">Acciones</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr [ngClass]="row.estado === 'error' ? 'row--error' : ''">
+      <td class="col-check">
+        <p-checkbox
+          [binary]="true"
+          [ngModel]="row.seleccionado"
+          (onChange)="onSeleccion($event.checked, row.id)"
+        ></p-checkbox>
+      </td>
+      <td class="mono" [ngClass]="{ 'text-danger': !row.documento }">
+        {{ row.documento || faltaDocumento }}
+      </td>
+      <td class="strong">{{ row.nombreCompleto }}</td>
+      <td class="muted">{{ universidadTexto(row) }}</td>
+      <td class="col-center">
+        <span
+          class="mono strong"
+          [ngClass]="{ 'badge-danger': esNotaInvalida(row) }"
+          [title]="tituloAsignaturas(row)"
+        >
+          {{ resumenNotas(row) }}
+        </span>
+      </td>
+      <td>
+        <p-tag
+          *ngIf="row.estado === 'valido'"
+          [value]="etiquetaValido"
+          severity="success"
+        ></p-tag>
+        <p-tag
+          *ngIf="row.estado === 'error'"
+          [value]="textoErrores(row.errores)"
+          severity="danger"
+          [title]="textoErrores(row.errores)"
+        ></p-tag>
+      </td>
+      <td class="col-center">
+        <p-button
+          [label]="row.estado === 'error' ? 'Corregir' : 'Ver'"
+          [icon]="row.estado === 'error' ? 'pi pi-wrench' : 'pi pi-pencil'"
+          [severity]="row.estado === 'error' ? 'danger' : 'secondary'"
+          size="small"
+          (onClick)="onEditar(row)"
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="7" class="empty">
+        <i class="pi pi-search"></i>
+        <p>{{ vacio }}</p>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

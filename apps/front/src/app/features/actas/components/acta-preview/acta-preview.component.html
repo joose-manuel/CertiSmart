@@ -1,0 +1,131 @@
+<div class="viewer">
+  <div class="viewer__bar">
+    <div class="viewer__bar-left">
+      <span class="viewer__badge">{{ etiquetaHoja }}</span>
+      <span class="viewer__medidas">{{ medidasHoja }}</span>
+    </div>
+    <div class="viewer__bar-right"></div>
+  </div>
+
+  <div class="sheet" [class.sheet--empty]="!acta">
+    <div class="watermark" *ngIf="sellos.marcaAgua && acta">{{ marcaAgua }}</div>
+
+    <ng-container *ngIf="acta; else vacio">
+      <div class="frame frame--top"></div>
+
+      <div class="sheet__body">
+        <img
+          class="sheet__logo"
+          [src]="logotipo"
+          alt="Universidad del Valle"
+        />
+        <div class="sheet__programa">
+          <strong>Facultad de Salud</strong>
+          <strong>Programa de Medicina</strong>
+        </div>
+
+        <p class="sheet__fecha">{{ acta.textoFecha }}</p>
+
+        <p class="sheet__linea">Señoras(es)</p>
+        <p class="sheet__linea">
+          <strong>Universidad {{ universidad }}</strong>
+        </p>
+        <p class="sheet__linea">Programa de Medicina</p>
+
+        <p class="sheet__linea">Reciban un cordial saludo</p>
+
+        <p class="sheet__parrafo">
+          Me permito informar que el estudiante de último año de Medicina –
+          Interno, relacionado a continuación, proveniente de la Universidad
+          {{ universidad }} realizó la rotación adjunta en nuestro escenario de
+          práctica y obtuvo las siguientes notas:
+        </p>
+
+        <table class="constancia">
+          <colgroup>
+            <col style="width: 30%" />
+            <col style="width: 60%" />
+            <col style="width: 10%" />
+          </colgroup>
+          <tbody>
+            <tr class="constancia__estudiante">
+              <td colspan="3">{{ documentoEstudiante }}</td>
+            </tr>
+            <tr class="constancia__head">
+              <th>CÓDIGO DE ASIGNATURA</th>
+              <th>NOMBRE ASIGNATURA</th>
+              <th>NOTA</th>
+            </tr>
+            <tr *ngFor="let asignatura of asignaturas">
+              <td>{{ asignatura.codigo }}</td>
+              <td>{{ asignatura.nombre }}</td>
+              <td>{{ notaTexto(asignatura.nota) }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="sheet__parrafo">
+          Compartimos este documento para que el estudiante pueda continuar con
+          su proceso de grado.
+        </p>
+
+        <div class="firma">
+          <div class="firma__top">
+            <span class="firma__saludo">Atentamente,</span>
+          </div>
+          <div class="firma__imagenes">
+            <img
+              class="firma__imagen"
+              [src]="firma"
+              alt="Firma del director del programa"
+            />
+            <img
+              class="firma__sello"
+              [src]="sello"
+              alt="Sello Facultad de Salud"
+            />
+          </div>
+          <div class="firma__nombre">{{ acta.director.nombre }}</div>
+          <div class="firma__cargo">{{ acta.director.cargo }}</div>
+        </div>
+      </div>
+
+      <div class="sheet__institutional-footer">
+        <span>Construyendo futuro</span>
+        <div>
+          <span>Universidad del Valle</span>
+          <span>Campus San Fernando</span>
+          <span>Telefax: 602 3210000</span>
+          <span>Conmutador: 3212100 - Ext. 4052 - 4057</span>
+          <span>Correo electrónico: medicina.pregrado@correunivalle.edu.co</span>
+          <span>Santiago de Cali - Colombia</span>
+        </div>
+      </div>
+
+      <footer
+        class="sheet__footer"
+        *ngIf="sellos.codigoQr || sellos.estampaTiempo"
+      >
+        <div class="sheet__verify" *ngIf="sellos.codigoQr">
+          <span class="sheet__qr"><i class="pi pi-qrcode"></i></span>
+          <div class="sheet__verify-info">
+            <strong>{{ etiquetaConstancia }} {{ acta.folio }}</strong>
+            <span>{{ textoVerificacion }}</span>
+          </div>
+        </div>
+        <div class="sheet__hash" *ngIf="sellos.estampaTiempo">
+          <div>{{ textoEstampa }}</div>
+        </div>
+      </footer>
+
+      <div class="frame frame--bottom"></div>
+    </ng-container>
+
+    <ng-template #vacio>
+      <div class="sheet__empty">
+        <i class="pi pi-file-edit"></i>
+        <p>Selecciona un estudiante para generar la vista previa de la constancia.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

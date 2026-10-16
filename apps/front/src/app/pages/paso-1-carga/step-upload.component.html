@@ -1,0 +1,118 @@
+<section class="step">
+  <div class="card">
+    <header class="card__head">
+      <span class="card__icon"><i class="pi pi-file-excel"></i></span>
+      <h1 class="card__title">{{ t.titulo }}</h1>
+      <p class="card__subtitle">{{ t.subtitulo }}</p>
+    </header>
+
+    <div class="card__body">
+      <div class="uploader">
+        <input
+          #inputArchivo
+          type="file"
+          class="uploader__input"
+          [attr.accept]="aceptados"
+          (change)="onInputChange($event)"
+        />
+
+        <button
+          type="button"
+          class="dropzone"
+          [class.dropzone--active]="arrastrando"
+          [class.dropzone--lleno]="!!archivo"
+          [class.dropzone--error]="!!error"
+          [attr.aria-invalid]="!!error"
+          [disabled]="subiendo"
+          (click)="abrirSelector()"
+          (keydown)="onKeydown($event)"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)"
+        >
+          <ng-container *ngIf="!archivo; else lleno">
+            <span class="dropzone__icon"><i class="pi pi-cloud-upload"></i></span>
+            <span class="dropzone__title">
+              {{ t.zonaTitulo }}
+              <span class="dropzone__link">{{ t.zonaAccion }}</span>
+            </span>
+            <span class="dropzone__hint">{{ t.soporte }}</span>
+            <span class="dropzone__badge">
+              <i class="pi pi-info-circle"></i>
+              Máximo {{ maxArchivoMb }} MB · Hasta {{ maxEstudiantes }} estudiantes
+              por lote
+            </span>
+          </ng-container>
+
+          <ng-template #lleno>
+            <span class="dropzone__swap">
+              <i class="pi pi-refresh"></i>
+              {{ t.cambiarArchivo }}
+            </span>
+          </ng-template>
+        </button>
+
+        <div class="filecard" *ngIf="archivo">
+          <span class="filecard__ext">{{ extension }}</span>
+          <span class="filecard__info">
+            <span class="filecard__name">{{ archivo?.name }}</span>
+            <span class="filecard__meta">
+              {{ pesoLegible }} · {{ t.listoParaSubir }}
+            </span>
+          </span>
+          <button
+            type="button"
+            class="filecard__remove"
+            [attr.aria-label]="t.quitar"
+            [title]="t.quitar"
+            (click)="quitar()"
+          >
+            <i class="pi pi-times"></i>
+          </button>
+        </div>
+
+        <p class="aviso-error" *ngIf="error" aria-live="polite">
+          <i class="pi pi-exclamation-circle"></i>
+          {{ error }}
+        </p>
+      </div>
+
+      <div class="acciones">
+        <button type="button" class="accion" (click)="descargarPlantilla()">
+          <span class="accion__left">
+            <span class="accion__icon accion__icon--green">
+              <i class="pi pi-download"></i>
+            </span>
+            <span class="accion__text">
+              <span class="accion__title">{{ t.plantillaTitulo }}</span>
+              <span class="accion__detail">{{ t.plantillaDetalle }}</span>
+            </span>
+          </span>
+          <i class="pi pi-chevron-right accion__chevron"></i>
+        </button>
+      </div>
+
+      <div class="submit">
+        <p-button
+          [label]="subiendo ? t.botonSubiendo : t.botonSubir"
+          icon="pi pi-upload"
+          [loading]="subiendo"
+          [disabled]="!puedeSubir"
+          size="large"
+          styleClass="submit__button"
+          (onClick)="subir()"
+        ></p-button>
+        <span class="submit__hint">
+          {{ archivo ? t.hintConArchivo : t.hintSinArchivo }}
+        </span>
+      </div>
+    </div>
+
+    <footer class="card__foot">
+      <span class="card__foot-info">
+        <i class="pi pi-lock"></i>
+        {{ t.aviso }}
+      </span>
+    </footer>
+  </div>
+</section>

@@ -1,0 +1,149 @@
+.dialog__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dialog__head-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  background: var(--brand-50);
+  color: var(--brand-600);
+}
+
+.dialog__head-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--cs-text);
+}
+
+.dialog__head-subtitle {
+  margin: 0.1rem 0 0;
+  font-size: 0.75rem;
+  color: var(--cs-text-soft);
+}
+
+.dialog__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 0.25rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.field input,
+:host ::ng-deep .field .p-inputtext,
+:host ::ng-deep .field .p-inputnumber,
+:host ::ng-deep .field .p-calendar,
+:host ::ng-deep .field .p-inputnumber-input {
+  width: 100%;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  line-height: 1.4;
+}
+
+.notice--error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.notice--info {
+  background: var(--brand-50);
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+}
+
+.asignaturas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+}
+
+.asignaturas__title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.asignatura {
+  display: grid;
+  grid-template-columns: 1.5rem 6.5rem 1fr 5.5rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.asignatura__num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748b;
+  text-align: center;
+}
+
+.asignatura__codigo,
+.asignatura__nombre {
+  width: 100%;
+}
+
+:host ::ng-deep .asignatura__nota,
+:host ::ng-deep .asignatura__nota .p-inputnumber-input {
+  width: 100%;
+}
+
+.asignaturas__hint {
+  margin: 0;
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .asignatura {
+    grid-template-columns: 1.5rem 1fr;
+  }
+
+  .asignatura__nombre,
+  .asignatura__codigo {
+    grid-column: 2 / -1;
+  }
+}

@@ -1,0 +1,57 @@
+<p-table
+  [value]="filas"
+  [paginator]="true"
+  [rows]="config.filas"
+  [rowsPerPageOptions]="config.opcionesFilas"
+  styleClass="index-table"
+  [tableStyle]="{ 'min-width': '58rem' }"
+  responsiveLayout="scroll"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th
+        *ngFor="let columna of columnas"
+        [ngClass]="columna.clase"
+      >
+        {{ columna.etiqueta }}
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-fila>
+    <tr [ngClass]="claseFila(fila)">
+      <td class="col-center col-num mono muted">{{ fila.numero }}</td>
+      <td class="mono strong ahora">{{ fila.folio }}</td>
+      <td class="strong ahora truncar" [title]="fila.nombreCompleto">
+        {{ fila.nombreCompleto }}
+      </td>
+      <td class="mono ahora">{{ fila.documento }}</td>
+      <td class="muted truncar programa" [title]="fila.universidad">
+        {{ fila.universidad }}
+      </td>
+      <td class="mono archivo truncar" [title]="fila.archivo">
+        {{ fila.archivo }}
+      </td>
+
+      <td class="col-center">
+        <p-button
+          [text]="true"
+          [rounded]="true"
+          icon="pi pi-download"
+          [ariaLabel]="etiquetaPdf"
+          [title]="etiquetaPdf"
+          (onClick)="onDescargar(fila)"
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="columnas.length" class="empty">
+        <i class="pi pi-inbox"></i>
+        <p>{{ config.vacio }}</p>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,54 @@
+<header class="app-header" [class.app-header--hidden]="hidden">
+  <div class="app-header__bar">
+    <div class="app-header__bar-inner">
+      <div class="app-header__brand">
+        <span class="app-header__logo">
+          <i [ngClass]="brand.logoIcon"></i>
+        </span>
+        <div class="app-header__brand-text">
+          <div class="app-header__brand-title">
+            <span class="app-header__name">{{ brand.name }}</span>
+            <p-tag
+              [value]="brand.version"
+              styleClass="app-header__version"
+            ></p-tag>
+          </div>
+          <p class="app-header__subtitle">{{ brand.subtitle }}</p>
+        </div>
+      </div>
+
+      <div class="app-header__actions">
+        <button
+          type="button"
+          class="app-header__icon-btn"
+          (click)="toggleTheme()"
+          [attr.aria-label]="dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+          [title]="dark ? 'Modo claro' : 'Modo oscuro'"
+        >
+          <i [ngClass]="dark ? 'pi pi-sun' : 'pi pi-moon'"></i>
+        </button>
+        <div class="app-header__user">
+          <p-avatar
+            [label]="user.initials"
+            shape="circle"
+            styleClass="app-header__avatar"
+          ></p-avatar>
+          <div class="app-header__user-text">
+            <span class="app-header__user-name">{{ user.name }}</span>
+            <span class="app-header__user-role">{{ user.role }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-header__stepper">
+    <p-steps
+      class="app-header__steps"
+      [model]="steps"
+      [activeIndex]="activeStep"
+      [readonly]="false"
+      (activeIndexChange)="onStepSelected($event)"
+    ></p-steps>
+  </div>
+</header>

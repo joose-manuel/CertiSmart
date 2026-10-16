@@ -1,0 +1,321 @@
+:host {
+  display: block;
+}
+
+.viewer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.viewer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--cs-text-soft);
+  padding: 0 0.25rem;
+}
+
+.viewer__bar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.viewer__badge {
+  background: #e2e8f0;
+  color: #334155;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  font-weight: 700;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.4rem;
+}
+
+.viewer__bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.viewer__bar-right i {
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.viewer__bar-right i:hover {
+  background: #e2e8f0;
+  color: var(--brand-600);
+}
+
+/* ---------- Hoja carta (plantilla oficial en Word) ---------- */
+.sheet {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 8.5 / 11;
+  background: #ffffff;
+  border: 1px solid #d8dee7;
+  border-radius: 0.4rem;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Times New Roman', Times, Georgia, serif;
+  color: #111827;
+}
+
+.sheet::after {
+  content: '';
+  position: absolute;
+  top: 8.3%;
+  left: 34.8%;
+  width: 60.8%;
+  border-top: 1px solid #747474;
+}
+
+.sheet--empty {
+  align-items: center;
+  justify-content: center;
+}
+
+.frame--top {
+  flex: 0 0 auto;
+  height: 2.3%;
+  background: linear-gradient(110deg, #687c80 0 63%, #ffffff 63.1% 64%, #e30613 64.1% 100%);
+}
+
+.frame--bottom {
+  flex: 0 0 auto;
+  height: 2.2%;
+  background: #e30613;
+}
+
+.sheet__logo {
+  position: absolute;
+  top: 4.5%;
+  left: 6.5%;
+  width: 19.6%;
+  max-width: 230px;
+  height: auto;
+}
+
+.sheet__programa {
+  position: absolute;
+  top: 4.7%;
+  right: 4.4%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: #e30613;
+  font-size: 0.68rem;
+  line-height: 1.05;
+}
+
+.sheet__body {
+  flex: 1 1 auto;
+  padding: 10.8% 11% 2.5%;
+  font-size: 0.72rem;
+  line-height: 1.42;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sheet__fecha {
+  margin: 0.3rem 0 1.9rem;
+}
+
+.sheet__linea {
+  margin: 0 0 0.15rem;
+}
+
+.sheet__parrafo {
+  margin: 0.55rem 0;
+  text-align: justify;
+}
+
+/* ---------- Tabla de notas ---------- */
+.constancia {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0.7rem 0 0.9rem;
+  font-size: 0.66rem;
+}
+
+.constancia th,
+.constancia td {
+  border: 1px solid #1f2937;
+  padding: 0.28rem 0.4rem;
+  text-align: center;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+.constancia__estudiante td {
+  font-weight: 700;
+}
+
+.constancia__head th {
+  font-weight: 700;
+}
+
+/* ---------- Firma ---------- */
+.firma {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.firma__top {
+  display: flex;
+  align-items: flex-start;
+}
+
+.firma__imagenes {
+  display: flex;
+  align-items: flex-start;
+  height: 4.6rem;
+}
+
+.firma__sello {
+  width: 23%;
+  max-width: 100px;
+  height: auto;
+  margin: -0.8rem 0 0 0.55rem;
+}
+
+.firma__saludo {
+  margin-bottom: 0.2rem;
+}
+
+.firma__imagen {
+  width: 13%;
+  max-width: 56px;
+  height: auto;
+  margin: 0.25rem 0 0 4%;
+}
+
+.firma__nombre {
+  font-weight: 700;
+  font-size: 0.72rem;
+  margin-top: -0.45rem;
+}
+
+.firma__cargo {
+  font-size: 0.68rem;
+}
+
+/* ---------- Pie opcional de verificación ---------- */
+.sheet__footer {
+  position: absolute;
+  z-index: 3;
+  bottom: 11.2%;
+  left: 0;
+  right: 0;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.35rem 11% 0.5rem;
+  font-family: 'Hanken Grotesk', 'Segoe UI', sans-serif;
+  font-size: 0.6rem;
+  color: #4b5563;
+}
+
+.sheet__institutional-footer {
+  position: absolute;
+  left: 4.3%;
+  right: 4.3%;
+  bottom: 2.2%;
+  height: 8.7%;
+  box-sizing: border-box;
+  border-top: 1px solid #747474;
+  padding: 0.45rem 0.55rem 0.15rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: #747474;
+  font-family: 'Times New Roman', Times, Georgia, serif;
+}
+
+.sheet__institutional-footer > span {
+  color: #adadad;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+
+.sheet__institutional-footer > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.38rem;
+  line-height: 1.15;
+  text-align: right;
+}
+
+.sheet__verify {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sheet__qr {
+  width: 2rem;
+  height: 2rem;
+  border: 1px dashed #9ca3af;
+  border-radius: 0.2rem;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.sheet__verify-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet__verify-info span {
+  color: #6b7280;
+}
+
+.sheet__hash {
+  text-align: right;
+}
+
+/* ---------- Marca de agua ---------- */
+.watermark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: 'Hanken Grotesk', 'Segoe UI', sans-serif;
+  font-size: 3.4rem;
+  font-weight: 800;
+  letter-spacing: 0.4rem;
+  color: rgba(15, 23, 42, 0.07);
+  transform: rotate(-28deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ---------- Estado vacío ---------- */
+.sheet__empty {
+  text-align: center;
+  color: #94a3b8;
+  padding: 2rem;
+}
+
+.sheet__empty i {
+  font-size: 2rem;
+}
+
+.sheet__empty p {
+  margin: 0.6rem 0 0;
+  font-size: 0.8rem;
+}

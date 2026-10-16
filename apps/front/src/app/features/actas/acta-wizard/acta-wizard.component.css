@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.wizard {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.wizard__guard {
+  max-width: 32rem;
+  margin: 3rem auto;
+  text-align: center;
+  background: var(--cs-surface);
+  border: 1px dashed var(--cs-border);
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+}
+
+.wizard__guard-icon {
+  font-size: 2rem;
+  color: var(--brand-600);
+}
+
+.wizard__guard-title {
+  margin: 0.75rem 0 0.5rem;
+  color: var(--cs-text);
+}
+
+.wizard__guard-text {
+  margin: 0 0 1.25rem;
+  font-size: 0.875rem;
+  color: var(--cs-text-muted);
+  line-height: 1.6;
+}

@@ -15,7 +15,12 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/front/tsconfig.app.json",
         "assets": ["apps/front/src/assets"],
-        "styles": ["apps/front/src/styles.css"],
+        "styles": [
+          "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+          "node_modules/primeng/resources/primeng.min.css",
+          "node_modules/primeicons/primeicons.css",
+          "apps/front/src/styles.css"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -23,13 +28,13 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1.5mb",
+              "maximumError": "3mb"
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "8kb",
+              "maximumError": "16kb"
             }
           ],
           "outputHashing": "all"

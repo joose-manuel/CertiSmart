@@ -1,0 +1,113 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '40rem' }"
+  styleClass="edit-dialog"
+  (onHide)="cerrar()"
+>
+  <ng-template pTemplate="header">
+    <div class="dialog__head">
+      <span class="dialog__head-icon"><i class="pi pi-user-edit"></i></span>
+      <div>
+        <h3 class="dialog__head-title">{{ titulo }}</h3>
+        <p class="dialog__head-subtitle">{{ subtitulo }}</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="dialog__body">
+    <div class="grid">
+      <label class="field">
+        <span class="field__label">Documento de Identidad (C.C.)</span>
+        <input
+          pInputText
+          class="mono"
+          [(ngModel)]="form.documento"
+          placeholder="Ej: 1005980100"
+        />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Universidad de Origen</span>
+        <input
+          pInputText
+          [(ngModel)]="form.universidad"
+          placeholder="Ej: DEL NORTE"
+        />
+      </label>
+    </div>
+
+    <label class="field">
+      <span class="field__label">Nombre Completo del Estudiante</span>
+      <input pInputText [(ngModel)]="form.nombreCompleto" />
+    </label>
+
+    <div class="asignaturas">
+      <span class="asignaturas__title">
+        <i class="pi pi-list"></i> Rotaciones / Asignaturas y Notas
+      </span>
+
+      <div
+        class="asignatura"
+        *ngFor="let asignatura of form.asignaturas; let i = index"
+      >
+        <span class="asignatura__num">{{ i + 1 }}</span>
+        <input
+          pInputText
+          class="mono asignatura__codigo"
+          [(ngModel)]="asignatura.codigo"
+          placeholder="Código"
+        />
+        <input
+          pInputText
+          class="asignatura__nombre"
+          [(ngModel)]="asignatura.nombre"
+          placeholder="Nombre de la asignatura"
+        />
+        <p-inputNumber
+          [(ngModel)]="asignatura.nota"
+          [min]="notaMin"
+          [max]="notaMax"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="1"
+          placeholder="Nota"
+          styleClass="asignatura__nota"
+        ></p-inputNumber>
+      </div>
+
+      <p class="asignaturas__hint">
+        Deja una fila vacía si el estudiante tiene menos rotaciones; la nota
+        puede quedar pendiente (se muestra «—»).
+      </p>
+    </div>
+
+    <div class="notice" [ngClass]="esError ? 'notice--error' : 'notice--info'">
+      <i
+        [ngClass]="esError ? 'pi pi-exclamation-triangle' : 'pi pi-info-circle'"
+      ></i>
+      <span>
+        <ng-container *ngIf="esError; else soloAviso">
+          <strong>{{ avisoError }}</strong> {{ motivo }}. Se han colocado
+          valores sugeridos para su corrección rápida.
+        </ng-container>
+        <ng-template #soloAviso>{{ avisoOk }}</ng-template>
+      </span>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Cancelar"
+      severity="secondary"
+      [outlined]="true"
+      (onClick)="cerrar()"
+    ></p-button>
+    <p-button
+      label="Guardar y Validar"
+      icon="pi pi-check"
+      (onClick)="onSubmit()"
+    ></p-button>
+  </ng-template>
+</p-dialog>

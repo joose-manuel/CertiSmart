@@ -13,7 +13,13 @@
         "tsConfig": "apps/back/tsconfig.app.json",
         "rootDir": "apps/back/src",
         "outputFileName": "main.js",
-        "assets": []
+        "assets": [
+          {
+            "input": "apps/back/src/assets",
+            "glob": "**/*",
+            "output": "assets"
+          }
+        ]
       },
       "configurations": {
         "production": {

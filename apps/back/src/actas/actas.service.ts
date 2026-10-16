@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { createHash } from 'node:crypto';
-import { ZipArchive } from 'archiver';
 import {
   MAX_ESTUDIANTES_LOTE,
 } from '../common/constants/constancia.constants';
@@ -25,7 +24,7 @@ export interface LoteGenerado {
   tipo: 'pdf' | 'zip';
   nombreArchivo: string;
   buffer?: Buffer;
-  stream?: ZipArchive;
+  stream?: any;
   manifiesto: Manifiesto;
 }
 
@@ -114,6 +113,7 @@ export class ActasService {
       nombrePaquete?.trim() ? nombrePaquete : 'constancias_movilidad',
       config.fechaExpedicion,
     );
+    const { ZipArchive } = await import('archiver');
     const stream = new ZipArchive({ zlib: { level: 9 } });
     stream.append(JSON.stringify(manifiesto, null, 2), {
       name: 'manifiesto.json',

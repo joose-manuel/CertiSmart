@@ -1,0 +1,21 @@
+<main class="hero">
+  <h1>{{ title }}</h1>
+  <p class="subtitle">Monorepo Nx · Angular 16 + NestJS</p>
+
+  <section class="card" *ngIf="apiInfo; else status">
+    <h2>Backend conectado</h2>
+    <p>{{ apiInfo.message }}</p>
+    <small>{{ apiInfo.name }} · v{{ apiInfo.version }}</small>
+  </section>
+
+  <ng-template #status>
+    <section class="card">
+      <p *ngIf="apiError; else loading">
+        No se pudo conectar con el backend ({{ apiError }}).
+      </p>
+      <ng-template #loading>
+        <p>Conectando con el backend…</p>
+      </ng-template>
+    </section>
+  </ng-template>
+</main>

@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: certismart-back
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install --legacy-peer-deps && npx nx build back
+    startCommand: node dist/apps/back/main.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 18.19.0
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000

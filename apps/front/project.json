@@ -1,0 +1,71 @@
+{
+  "name": "front",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/front/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/front/browser",
+        "index": "apps/front/src/index.html",
+        "main": "apps/front/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/front/tsconfig.app.json",
+        "assets": ["apps/front/src/assets"],
+        "styles": ["apps/front/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/front/src/environments/environment.ts",
+              "with": "apps/front/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "front:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "front:build:production"
+        },
+        "development": {
+          "browserTarget": "front:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    }
+  },
+  "tags": []
+}

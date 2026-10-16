@@ -6,7 +6,7 @@
   "prefix": "app",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@ngx-env/builder:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/front/browser",
@@ -32,13 +32,7 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "all",
-          "fileReplacements": [
-            {
-              "replace": "apps/front/src/environments/environment.ts",
-              "with": "apps/front/src/environments/environment.prod.ts"
-            }
-          ]
+          "outputHashing": "all"
         },
         "development": {
           "buildOptimizer": false,
@@ -52,7 +46,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@ngx-env/builder:dev-server",
       "options": {
         "browserTarget": "front:build"
       },

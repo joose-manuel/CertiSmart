@@ -4,13 +4,17 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: npm install --legacy-peer-deps && npx nx build back
-    startCommand: node dist/apps/back/main.js
+    buildCommand: npm install --legacy-peer-deps && npm run build:back
+    startCommand: npm run start:back
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
         value: 18.19.0
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 3000
+      - key: API_PREFIX
+        value: api
+      # Render inyecta PORT automáticamente; no lo definas aquí.
+      # Cambia este valor por la URL real de tu frontend en Vercel.
+      - key: CORS_ORIGINS
+        value: https://certismart.vercel.app

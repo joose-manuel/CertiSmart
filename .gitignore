@@ -25,10 +25,17 @@ yarn-debug.log*
 yarn-error.log*
 *.log
 
-# Env
-.env
-.env.local
-.env.*.local
+# Env (never commit real secrets; .env.example files are tracked)
+/.env
+/.env.local
+/.env.*.local
+/apps/back/.env
+/apps/back/.env.local
+/apps/back/.env.*
+/apps/front/.env
+/apps/front/.env.local
+/apps/front/.env.*
+!**/.env.example
 
 # Angular
 /.angular/cache

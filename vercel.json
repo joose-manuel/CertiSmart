@@ -4,5 +4,10 @@
   "outputDirectory": "dist/apps/front/browser",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
+  "build": {
+    "env": {
+      "NG_APP_ENV": "production"
+    }
+  },
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

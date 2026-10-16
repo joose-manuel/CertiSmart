@@ -1,4 +1,11 @@
-export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3000/api',
+export interface Environment {
+  production: boolean;
+  appName: string;
+  apiUrl: string;
+}
+
+export const environment: Environment = {
+  production: import.meta.env.NG_APP_ENV === 'production',
+  appName: 'CertiSmart',
+  apiUrl: import.meta.env.NG_APP_API_URL || 'http://localhost:3000/api',
 };

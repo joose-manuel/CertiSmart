@@ -15,8 +15,9 @@ export type CodigoError =
   | 'NOTA_FUERA_RANGO';
 
 /**
- * Una asignatura (rotación) del estudiante tal como viene del Excel de
- * movilidad: hasta 3 bloques por fila (código, nombre y nota).
+ * Una asignatura (rotación) del estudiante. Un estudiante puede tener
+ * tantas asignaturas como columnas traiga el Excel de movilidad
+ * (código, nombre y nota por bloque).
  */
 export interface Asignatura {
   codigo: string;

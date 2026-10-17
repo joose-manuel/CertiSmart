@@ -61,6 +61,14 @@ export class StudentEditDialogComponent implements OnChanges {
     this.visibleChange.emit(false);
   }
 
+  agregarAsignatura(): void {
+    this.form.asignaturas.push({ codigo: '', nombre: '', nota: null });
+  }
+
+  eliminarAsignatura(index: number): void {
+    this.form.asignaturas.splice(index, 1);
+  }
+
   onSubmit(): void {
     this.guardar.emit({ ...this.form });
   }

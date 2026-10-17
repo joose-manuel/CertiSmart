@@ -12,22 +12,15 @@ import {
   NOTA_SUGERIDA,
 } from './student-edit-dialog.constants';
 
-const TOTAL_ASIGNATURAS = 3;
-
 @Injectable()
 export class StudentEditDialogService {
   construirFormulario(estudiante: Estudiante): EdicionEstudiante {
-    const asignaturas: Asignatura[] = estudiante.asignaturas
-      .slice(0, TOTAL_ASIGNATURAS)
+    const asignaturas: Asignatura[] = (estudiante.asignaturas ?? [])
       .map((asignatura) => ({
         codigo: asignatura.codigo,
         nombre: asignatura.nombre,
         nota: this.notaSugerida(asignatura.nota),
       }));
-
-    while (asignaturas.length < TOTAL_ASIGNATURAS) {
-      asignaturas.push({ codigo: '', nombre: '', nota: null });
-    }
 
     return {
       id: estudiante.id,

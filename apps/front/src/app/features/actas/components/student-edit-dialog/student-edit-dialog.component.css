@@ -105,7 +105,7 @@
 
 .asignatura {
   display: grid;
-  grid-template-columns: 1.5rem 6.5rem 1fr 5.5rem;
+  grid-template-columns: 1.5rem 6.5rem 1fr 5.5rem 2.5rem;
   align-items: center;
   gap: 0.5rem;
 }
@@ -120,6 +120,17 @@
 .asignatura__codigo,
 .asignatura__nombre {
   width: 100%;
+}
+
+.asignatura__eliminar {
+  width: 100%;
+  padding: 0.15rem 0.35rem;
+  font-size: 0.85rem;
+}
+
+.asignaturas__agregar {
+  width: 100%;
+  margin-top: 0.25rem;
 }
 
 :host ::ng-deep .asignatura__nota,
@@ -143,7 +154,9 @@
   }
 
   .asignatura__nombre,
-  .asignatura__codigo {
+  .asignatura__codigo,
+  .asignatura__nota,
+  .asignatura__eliminar {
     grid-column: 2 / -1;
   }
 }

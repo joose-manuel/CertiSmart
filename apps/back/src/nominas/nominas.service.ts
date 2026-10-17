@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Workbook } from 'exceljs';
 import {
   COLUMNAS_ESPERADAS,
+  MAX_BLOQUES_ASIGNATURA,
   MAX_ESTUDIANTES_LOTE,
 } from '../common/constants/constancia.constants';
 import {
@@ -146,7 +147,16 @@ export class NominasService {
     const workbook = new Workbook();
 
     const hoja = workbook.addWorksheet('NOTAS MOVILIDAD');
-    const anchos = [18, 14, 34, 24, 34, 9, 24, 34, 9, 24, 34, 9];
+    const anchos = [
+      18, // UNIVERSIDAD
+      14, // CC
+      34, // NOMBRE ESTUDIANTE
+      ...Array.from({ length: MAX_BLOQUES_ASIGNATURA }, () => [
+        24, // CÓDIGO
+        34, // NOMBRE
+        9,  // NOTA
+      ]).flat(),
+    ];
     hoja.columns = anchos.map((width) => ({ width }));
 
     const encabezado = hoja.addRow(COLUMNAS_ESPERADAS);
@@ -179,9 +189,7 @@ export class NominasService {
       'ASG102',
       'ASIGNATURA DE EJEMPLO 2',
       4.0,
-      '',
-      '',
-      '',
+      ...Array.from({ length: (MAX_BLOQUES_ASIGNATURA - 2) * 3 }, () => ''),
     ]);
     ejemplo.font = { italic: true, color: { argb: 'FF6B7280' } };
 
@@ -191,7 +199,7 @@ export class NominasService {
       'Cómo usar esta plantilla',
       '',
       '1. Diligencia una fila por estudiante: UNIVERSIDAD, CC y NOMBRE ESTUDIANTE son obligatorios.',
-      '2. Completa hasta 3 bloques de asignatura (CÓDIGO · NOMBRE · NOTA). La NOTA debe estar entre 0 y 5 (puede quedar vacía si está pendiente).',
+      '2. Completa hasta 10 bloques de asignatura (CÓDIGO · NOMBRE · NOTA). La NOTA debe estar entre 0 y 5 (puede quedar vacía si está pendiente).',
       '3. La fila de ejemplo se puede borrar antes de cargar el archivo.',
       '4. Guarda el archivo en formato .xlsx (no lo cambies a .xls ni a PDF).',
       '5. La universidad se escribe como en el acta: SANTIAGO DE CALI, DEL NORTE, NACIONAL, etc.',
@@ -269,7 +277,7 @@ export class NominasService {
     if (nombre === -1) faltantes.push('NOMBRE ESTUDIANTE');
 
     const bloques: BloqueColumnas[] = [];
-    for (let bloque = 1; bloque <= 3; bloque++) {
+    for (let bloque = 1; bloque <= MAX_BLOQUES_ASIGNATURA; bloque++) {
       const marca = ` ${bloque}`;
 
       // El archivo real repite «CÓDIGO DE ASIGNATURA / NOMBRE ASIGNATURA /
@@ -301,14 +309,19 @@ export class NominasService {
         (v) => v.split(' ')[0] === 'NOTA' && v.endsWith(marca),
       );
 
-      const codigo = codigoPorMarca !== -1 ? codigoPorMarca : (codigos[bloque - 1] ?? -1);
+      const codigo =
+        codigoPorMarca !== -1 ? codigoPorMarca : (codigos[bloque - 1] ?? -1);
       const nombreAsignatura =
         nombrePorMarca !== -1 ? nombrePorMarca : (nombres[bloque - 1] ?? -1);
-      const nota = notaPorMarca !== -1 ? notaPorMarca : (notas[bloque - 1] ?? -1);
+      const nota =
+        notaPorMarca !== -1 ? notaPorMarca : (notas[bloque - 1] ?? -1);
 
-      if (codigo === -1) faltantes.push(`CÓDIGO DE ASIGNATURA ${bloque}`);
-      if (nombreAsignatura === -1) faltantes.push(`NOMBRE ASIGNATURA ${bloque}`);
-      if (nota === -1) faltantes.push(`NOTA ${bloque}`);
+      // Los bloques de asignatura son opcionales: si no hay columna de código
+      // para este bloque se asume que no hay más bloques y se detiene la lectura.
+      // Las columnas de nombre y nota pueden faltar sin que sea error (máx. 10).
+      if (codigo === -1) {
+        break;
+      }
 
       bloques.push({ codigo, nombre: nombreAsignatura, nota });
     }

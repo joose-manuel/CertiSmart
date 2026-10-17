@@ -75,7 +75,22 @@
           placeholder="Nota"
           styleClass="asignatura__nota"
         ></p-inputNumber>
+        <p-button
+          icon="pi pi-trash"
+          class="asignatura__eliminar"
+          (onClick)="eliminarAsignatura(i)"
+          [disabled]="form.asignaturas.length === 1"
+        ></p-button>
       </div>
+
+      <p-button
+        label="+ Añadir asignatura"
+        icon="pi pi-plus"
+        severity="secondary"
+        [outlined]="true"
+        class="asignaturas__agregar"
+        (onClick)="agregarAsignatura()"
+      ></p-button>
 
       <p class="asignaturas__hint">
         Deja una fila vacía si el estudiante tiene menos rotaciones; la nota

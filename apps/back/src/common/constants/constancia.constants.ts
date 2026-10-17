@@ -48,23 +48,26 @@ export const MESES_ES: string[] = [
 ];
 
 /**
- * Columnas esperadas del Excel «cargue notas»: datos del estudiante y hasta
- * 3 bloques de asignatura (código · nombre · nota).
+ * Número máximo de bloques de asignatura que se admiten por fila en el
+ * Excel «cargue notas» (código · nombre · nota).
  */
-export const COLUMNAS_ESPERADAS: string[] = [
-  'UNIVERSIDAD',
-  'CC',
-  'NOMBRE ESTUDIANTE',
-  'CÓDIGO DE ASIGNATURA 1',
-  'NOMBRE ASIGNATURA 1',
-  'NOTA 1',
-  'CÓDIGO DE ASIGNATURA 2',
-  'NOMBRE ASIGNATURA 2',
-  'NOTA 2',
-  'CÓDIGO DE ASIGNATURA 3',
-  'NOMBRE ASIGNATURA 3',
-  'NOTA 3',
-];
+export const MAX_BLOQUES_ASIGNATURA = 10;
+
+/**
+ * Columnas esperadas del Excel «cargue notas»: datos del estudiante y hasta
+ * MAX_BLOQUES_ASIGNATURA bloques de asignatura (código · nombre · nota).
+ */
+export const COLUMNAS_ESPERADAS: string[] = (() => {
+  const columnas: string[] = ['UNIVERSIDAD', 'CC', 'NOMBRE ESTUDIANTE'];
+  for (let bloque = 1; bloque <= MAX_BLOQUES_ASIGNATURA; bloque++) {
+    columnas.push(
+      `CÓDIGO DE ASIGNATURA ${bloque}`,
+      `NOMBRE ASIGNATURA ${bloque}`,
+      `NOTA ${bloque}`,
+    );
+  }
+  return columnas;
+})();
 
 export const MAX_ARCHIVO_MB = 25;
 export const MAX_ESTUDIANTES_LOTE = 2000;

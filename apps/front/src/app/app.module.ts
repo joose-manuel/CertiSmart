@@ -23,17 +23,19 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 
 import { AppComponent } from './app.component';
-import { ActaWizardComponent } from './features/actas/acta-wizard/acta-wizard.component';
-import { ActasIndexTableComponent } from './features/actas/components/actas-index-table/actas-index-table.component';
-import { ActaPreviewComponent } from './features/actas/components/acta-preview/acta-preview.component';
-import { StepExportComponent } from './pages/paso-4-exportacion/step-export.component';
-import { StepTemplateComponent } from './pages/paso-3-plantilla/step-template.component';
-import { StepUploadComponent } from './pages/paso-1-carga/step-upload.component';
-import { StepValidateComponent } from './pages/paso-2-validacion/step-validate.component';
-import { StudentEditDialogComponent } from './features/actas/components/student-edit-dialog/student-edit-dialog.component';
-import { StudentsTableComponent } from './features/actas/components/students-table/students-table.component';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ActaWizardComponent } from './features/actas/acta-wizard/Interface/acta-wizard.component';
+import { ActasIndexTableComponent } from './features/actas/components/actas-index-table/Interface/actas-index-table.component';
+import { ActaPreviewComponent } from './features/actas/components/acta-preview/Interface/acta-preview.component';
+import { StepExportComponent } from './pages/paso-4-exportacion/Interface/step-export.component';
+import { StepTemplateComponent } from './pages/paso-3-plantilla/Interface/step-template.component';
+import { StepUploadComponent } from './pages/paso-1-carga/Interface/step-upload.component';
+import { StepValidateComponent } from './pages/paso-2-validacion/Interface/step-validate.component';
+import { StudentEditDialogComponent } from './features/actas/components/student-edit-dialog/Interface/student-edit-dialog.component';
+import { StudentsTableComponent } from './features/actas/components/students-table/Interface/students-table.component';
+import { HeaderComponent } from './shared/components/header/Interface/header.component';
+import { LoadingScreenComponent } from './shared/components/loading-screen/Interface/loading-screen.component';
+import { DashboardComponent } from './pages/dashboard/Interface/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -48,13 +50,14 @@ import { LoadingScreenComponent } from './shared/components/loading-screen/loadi
     StudentEditDialogComponent,
     ActaPreviewComponent,
     ActasIndexTableComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([]),
+    AppRoutingModule,
     AvatarModule,
     ButtonModule,
     CalendarModule,

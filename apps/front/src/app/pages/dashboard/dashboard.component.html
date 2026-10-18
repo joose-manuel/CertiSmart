@@ -1,0 +1,21 @@
+<app-loading-screen
+  *ngIf="!ready"
+  [progress]="progress"
+  [offline]="offline"
+  (retry)="onRetry()"
+></app-loading-screen>
+
+<ng-container *ngIf="ready">
+  <app-header
+    [activeStep]="activeStep"
+    (stepSelected)="onStepSelected($event)"
+  ></app-header>
+
+  <app-acta-wizard
+    [activeStep]="activeStep"
+    (stepChange)="onStepSelected($event)"
+  ></app-acta-wizard>
+  
+</ng-container>
+
+<p-toast position="top-right"></p-toast>

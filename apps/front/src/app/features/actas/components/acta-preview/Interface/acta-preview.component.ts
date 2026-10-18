@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActaDocumento } from '../../../../../core/models/acta.model';
 import { Asignatura } from '../../../../../core/models/estudiante.model';
-import { OpcionesSello } from '../acta-preview.interface';
+import { OpcionesSello } from './acta-preview.interface';
 import {
   ETIQUETA_CONSTANCIA,
   ETIQUETA_HOJA,

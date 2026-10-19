@@ -1,0 +1,101 @@
+<div class="agenda">
+  <app-page-header
+    [titulo]="titulo"
+    [subtitulo]="subtitulo"
+    icono="pi pi-calendar"
+  >
+    <p-selectButton
+      [options]="opciones"
+      optionLabel="label"
+      optionValue="value"
+      [ngModel]="tipo"
+      (onChange)="cambiarTipo($event.value)"
+    ></p-selectButton>
+  </app-page-header>
+
+  <p class="aviso">
+    <i class="pi pi-info-circle"></i>
+    {{ avisoDemo }}
+  </p>
+
+  <div class="columnas">
+    <section class="tarjeta">
+      <header class="tarjeta__head">
+        <div>
+          <h3 class="tarjeta__titulo">
+            <i [ngClass]="config.icono"></i>{{ config.label }}
+          </h3>
+          <p class="tarjeta__subtitulo">{{ config.descripcion }}</p>
+        </div>
+        <span class="mes">{{ tituloMes }}</span>
+      </header>
+
+      <div class="calendario">
+        <div class="calendario__fila calendario__fila--cabecera">
+          <span class="calendario__dia-semana" *ngFor="let dia of diasSemana">
+            {{ dia }}
+          </span>
+        </div>
+
+        <div class="calendario__fila" *ngFor="let semana of cuadricula">
+          <div
+            class="calendario__celda"
+            *ngFor="let celda of semana"
+            [class.calendario__celda--fuera]="!celda.delMes"
+            [class.calendario__celda--hoy]="celda.hoy"
+            [class.calendario__celda--con-eventos]="celda.eventos.length > 0"
+          >
+            <span class="calendario__numero">{{ celda.dia }}</span>
+
+            <span class="calendario__puntos" *ngIf="celda.eventos.length">
+              <span
+                class="calendario__punto"
+                *ngFor="let evento of celda.eventos"
+                [ngClass]="'calendario__punto--' + evento.tono"
+              ></span>
+            </span>
+
+            <span class="calendario__evento" *ngIf="celda.eventos.length">
+              {{ celda.eventos[0].titulo }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="tarjeta">
+      <header class="tarjeta__head">
+        <h3 class="tarjeta__titulo">
+          <i class="pi pi-clock"></i>{{ tituloProximos }}
+        </h3>
+      </header>
+
+      <p class="vacio" *ngIf="!eventos.length">
+        <i class="pi pi-info-circle"></i>{{ sinEventos }}
+      </p>
+
+      <ol class="eventos">
+        <li
+          class="evento"
+          *ngFor="let item of eventos"
+          [ngClass]="'evento--' + item.tono"
+        >
+          <span class="evento__fecha">
+            <strong>{{ item.dia }}</strong>
+            <small>{{ mesAbrev }}</small>
+          </span>
+          <div class="evento__texto">
+            <strong>{{ item.titulo }}</strong>
+            <span class="evento__detalle">{{ item.detalle }}</span>
+            <span class="evento__meta">
+              <i class="pi pi-clock"></i>{{ item.hora }}
+            </span>
+            <span class="evento__meta">
+              <i class="pi pi-map-marker"></i>{{ item.lugar }}
+            </span>
+          </div>
+        </li>
+      </ol>
+    </aside>
+  </div>
+</div>

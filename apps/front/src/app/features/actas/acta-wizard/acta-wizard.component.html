@@ -1,4 +1,64 @@
-<div class="wizard">
+<app-loading-screen
+  *ngIf="!backend.ready()"
+  [progress]="backend.progress()"
+  [offline]="backend.offline()"
+  (retry)="onReintentarBackend()"
+></app-loading-screen>
+
+<div class="wizard" *ngIf="backend.ready()">
+  <app-page-header
+    [titulo]="tituloModulo"
+    [subtitulo]="subtituloModulo"
+    icono="pi pi-file-edit"
+  >
+    <p-button
+      [label]="etiquetaValidar"
+      icon="pi pi-shield"
+      severity="secondary"
+      [outlined]="true"
+      (onClick)="validarRegistros()"
+    ></p-button>
+    <p-button
+      [label]="etiquetaPlantilla"
+      icon="pi pi-download"
+      [loading]="descargandoPlantilla"
+      (onClick)="descargarPlantilla()"
+    ></p-button>
+  </app-page-header>
+
+  <app-actas-stepper
+    [pasoActual]="activeStep"
+    [pasoMaximo]="pasoMaximo"
+    (pasoSeleccionado)="irA($event)"
+  ></app-actas-stepper>
+
+  <section class="auditoria" *ngIf="auditoriaVisible && hayDatos">
+    <header class="auditoria__head">
+      <span class="auditoria__titulo">
+        <i class="pi pi-shield"></i>
+        {{ auditoriaTitulo }}
+      </span>
+      <span class="auditoria__chip">
+        <i class="pi pi-check"></i>
+        {{ auditoriaChip }}
+      </span>
+    </header>
+
+    <p class="auditoria__detalle">{{ auditoriaDetalle }}</p>
+
+    <div class="auditoria__stats">
+      <div class="auditoria__stat" *ngFor="let stat of estadisticas">
+        <span class="auditoria__valor">{{ stat.valor }}</span>
+        <span class="auditoria__label">{{ stat.label }}</span>
+      </div>
+    </div>
+
+    <button type="button" class="auditoria__accion" (click)="irA(pasoValidacion)">
+      {{ auditoriaAccion }}
+      <i class="pi pi-arrow-right"></i>
+    </button>
+  </section>
+
   <div class="wizard__guard" *ngIf="activeStep !== pasoCarga && !hayDatos">
     <i class="pi pi-info-circle wizard__guard-icon"></i>
     <h3 class="wizard__guard-title">Sin nómina cargada</h3>

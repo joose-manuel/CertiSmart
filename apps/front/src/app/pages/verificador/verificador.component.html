@@ -1,0 +1,94 @@
+<div class="verificador">
+  <app-page-header
+    [titulo]="titulo"
+    [subtitulo]="subtitulo"
+    icono="pi pi-shield"
+  >
+    <p-button
+      [label]="verificando ? etiquetaVerificando : etiquetaVerificar"
+      icon="pi pi-refresh"
+      [loading]="verificando"
+      (onClick)="verificar()"
+    ></p-button>
+  </app-page-header>
+
+  <p class="aviso">
+    <i class="pi pi-info-circle"></i>
+    {{ avisoDemo }}
+  </p>
+
+  <div class="columnas">
+    <section class="tarjeta">
+      <h3 class="tarjeta__titulo">
+        <i class="pi pi-user"></i>{{ etiquetaCaso }}
+      </h3>
+
+      <p-dropdown
+        [options]="opciones"
+        optionLabel="label"
+        optionValue="value"
+        [filter]="true"
+        filterBy="label"
+        [ngModel]="documento"
+        (onChange)="onCasoChange($event.value)"
+        styleClass="w-full"
+        [appendTo]="'body'"
+      ></p-dropdown>
+
+      <div class="caso" *ngIf="caso">
+        <span class="caso__nombre">{{ caso.nombre }}</span>
+        <span class="caso__meta">
+          <i class="pi pi-id-card"></i>{{ caso.documento }}
+        </span>
+        <span class="caso__meta">
+          <i class="pi pi-building"></i>{{ caso.programa }}
+        </span>
+      </div>
+
+      <div class="resumen">
+        <div class="resumen__stat">
+          <span class="resumen__valor resumen__valor--ok">{{ resumen.ok }}</span>
+          <span class="resumen__label">En firme</span>
+        </div>
+        <div class="resumen__stat">
+          <span class="resumen__valor resumen__valor--warn">
+            {{ resumen.pendiente }}
+          </span>
+          <span class="resumen__label">Pendientes</span>
+        </div>
+        <div class="resumen__stat">
+          <span class="resumen__valor resumen__valor--danger">
+            {{ resumen.bloqueado }}
+          </span>
+          <span class="resumen__label">Bloqueantes</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta">
+      <header class="tarjeta__head">
+        <h3 class="tarjeta__titulo">
+          <i class="pi pi-list"></i>{{ tituloChecklist }}
+        </h3>
+        <span class="veredicto" [ngClass]="'veredicto--' + tonoVeredicto">
+          {{ etiquetaVeredicto }}
+        </span>
+      </header>
+
+      <ul class="checklist">
+        <li
+          class="check"
+          *ngFor="let requisito of caso?.requisitos || []"
+          [ngClass]="'check--' + requisito.estado"
+        >
+          <span class="check__icono"><i [ngClass]="requisito.icono"></i></span>
+          <div class="check__texto">
+            <strong>{{ requisito.label }}</strong>
+            <span>{{ requisito.detalle }}</span>
+          </div>
+          <span class="check__estado">{{ etiqueta(requisito.estado) }}</span>
+        </li>
+      </ul>
+    </section>
+  </div>
+</div>

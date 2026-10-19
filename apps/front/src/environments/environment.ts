@@ -6,6 +6,6 @@ export interface Environment {
 
 export const environment: Environment = {
   production: import.meta.env.NG_APP_ENV === 'production',
-  appName: 'CertiSmart',
+  appName: 'SGA Univalle',
   apiUrl: import.meta.env.NG_APP_API_URL || 'http://localhost:3000/api',
 };

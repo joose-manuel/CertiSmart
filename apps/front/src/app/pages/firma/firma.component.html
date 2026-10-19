@@ -1,0 +1,129 @@
+<div class="firma">
+  <app-page-header
+    [titulo]="titulo"
+    [subtitulo]="subtitulo"
+    icono="pi pi-verified"
+  >
+    <p-button
+      [label]="etiquetaFicha"
+      icon="pi pi-download"
+      severity="secondary"
+      [outlined]="true"
+      (onClick)="descargarFicha()"
+    ></p-button>
+    <p-button
+      [label]="etiquetaRenovar"
+      icon="pi pi-refresh"
+      (onClick)="renovar()"
+    ></p-button>
+  </app-page-header>
+
+  <p class="aviso">
+    <i class="pi pi-info-circle"></i>
+    {{ avisoDemo }}
+  </p>
+
+  <div class="columnas">
+    <section class="tarjeta">
+      <header class="tarjeta__head">
+        <h3 class="tarjeta__titulo">
+          <i class="pi pi-shield"></i>{{ tituloCertificado }}
+        </h3>
+        <span class="estado" [ngClass]="'estado--' + certificado.estado">
+          {{ etiquetaEstado }}
+        </span>
+      </header>
+
+      <div class="sello">
+        <span class="sello__icono"><i class="pi pi-verified"></i></span>
+        <div class="sello__texto">
+          <strong>{{ certificado.titular }}</strong>
+          <span>{{ etiquetaTitular }}</span>
+        </div>
+      </div>
+
+      <dl class="datos">
+        <div class="datos__fila">
+          <dt>{{ etiquetaEmisor }}</dt>
+          <dd>{{ certificado.emisor }}</dd>
+        </div>
+        <div class="datos__fila">
+          <dt>{{ etiquetaSerie }}</dt>
+          <dd>{{ certificado.serie }}</dd>
+        </div>
+        <div class="datos__fila">
+          <dt>{{ etiquetaAlgoritmo }}</dt>
+          <dd>{{ certificado.algoritmo }}</dd>
+        </div>
+        <div class="datos__fila">
+          <dt>{{ etiquetaVigencia }}</dt>
+          <dd>{{ vigencia }}</dd>
+        </div>
+        <div class="datos__fila datos__fila--bloque">
+          <dt>{{ etiquetaHuella }}</dt>
+          <dd class="datos__hash">{{ certificado.huella }}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="tarjeta">
+      <header class="tarjeta__head">
+        <h3 class="tarjeta__titulo">
+          <i class="pi pi-qrcode"></i>{{ tituloSellos }}
+        </h3>
+        <p-button
+          [label]="etiquetaVerSellos"
+          icon="pi pi-external-link"
+          size="small"
+          severity="secondary"
+          [outlined]="true"
+          (onClick)="verHistorial()"
+        ></p-button>
+      </header>
+
+      <div class="tabla-scroll">
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th>Folio</th>
+              <th>Graduando</th>
+              <th>Fecha de sello</th>
+              <th>Huella</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of sellos">
+              <td class="tabla__folio">{{ item.folio }}</td>
+              <td>
+                <span class="tabla__nombre">{{ item.nombre }}</span>
+                <span class="tabla__doc">{{ item.documento }}</span>
+              </td>
+              <td class="tabla__fecha">{{ item.fecha }}</td>
+              <td class="tabla__hash">{{ hashCorto(item.hash) }}</td>
+              <td>
+                <span
+                  class="tabla__estado"
+                  [ngClass]="'tabla__estado--' + item.estado"
+                >
+                  {{ item.estado === 'firmado' ? 'Firmado' : 'Revocado' }}
+                </span>
+              </td>
+              <td class="tabla__acciones">
+                <p-button
+                  icon="pi pi-search"
+                  size="small"
+                  severity="secondary"
+                  [text]="true"
+                  [attr.aria-label]="'Verificar sello ' + item.folio"
+                  (onClick)="verificarSello(item.folio)"
+                ></p-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

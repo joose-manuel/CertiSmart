@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { firstValueFrom } from 'rxjs';
 
@@ -11,17 +11,24 @@ import { ActasStoreService } from '../../../core/services/actas-store.service';
 import { mensajeHttpError, descargarBlob } from '../../../core/utils/descarga.util';
 import {
   AYUDA_FOLIO,
+  AYUDA_VOZ,
+  AVISO_VOZ_NO_SOPORTADA,
   ETIQUETA_AJUSTES,
+  ETIQUETA_DETENER,
+  ETIQUETA_ESCUCHAR,
   ETIQUETA_ESTAMPADA,
   ETIQUETA_ESTUDIANTE_DEMO,
   ETIQUETA_FECHA,
   ETIQUETA_FOLIO,
   ETIQUETA_MARCA_AGUA,
   ETIQUETA_QR,
+  ESTADO_VOZ_ACTIVO,
+  ESTADO_VOZ_LISTO,
   SUBTITULO_PLANTILLA,
   TEXTO_VISTA_PREVIA,
   TITULO_PLANTILLA,
   TITULO_SELLOS,
+  TITULO_VOZ,
 } from '../const/step-template.constants';
 import { OpcionesSellos } from './step-template.interface';
 import { StepTemplateService } from '../Services/step-template.service';
@@ -32,7 +39,7 @@ import { StepTemplateService } from '../Services/step-template.service';
   styleUrls: ['../step-template.component.css'],
   providers: [StepTemplateService],
 })
-export class StepTemplateComponent {
+export class StepTemplateComponent implements OnDestroy {
   @Output() continuar = new EventEmitter<void>();
   @Output() retroceder = new EventEmitter<void>();
 
@@ -52,6 +59,14 @@ export class StepTemplateComponent {
   readonly etiquetaMarcaAgua = ETIQUETA_MARCA_AGUA;
   readonly etiquetaEstampada = ETIQUETA_ESTAMPADA;
   readonly textoVistaPrevia = TEXTO_VISTA_PREVIA;
+  readonly tituloVoz = TITULO_VOZ;
+  readonly etiquetaEscuchar = ETIQUETA_ESCUCHAR;
+  readonly etiquetaDetener = ETIQUETA_DETENER;
+  readonly estadoVozListo = ESTADO_VOZ_LISTO;
+  readonly estadoVozActivo = ESTADO_VOZ_ACTIVO;
+  readonly ayudaVoz = AYUDA_VOZ;
+
+  leyendo = false;
 
   constructor(
     private readonly store: ActasStoreService,
@@ -60,6 +75,53 @@ export class StepTemplateComponent {
     private readonly api: ActasApiService,
     private readonly messageService: MessageService,
   ) {}
+
+  ngOnDestroy(): void {
+    this.templateService.detener();
+  }
+
+  get puedeLeerVoz(): boolean {
+    return this.templateService.soportaVoz();
+  }
+
+  get textoVoz(): string {
+    const acta = this.acta;
+    return acta ? this.templateService.textoConstancia(acta) : '';
+  }
+
+  /** Alterna entre reproducir la constancia y detener la lectura. */
+  alternarLectura(): void {
+    if (this.leyendo) {
+      this.detenerLectura();
+      return;
+    }
+
+    const acta = this.acta;
+    if (!acta) {
+      return;
+    }
+
+    const inicio = this.templateService.leer(
+      this.templateService.textoConstancia(acta),
+      () => (this.leyendo = false),
+    );
+
+    this.leyendo = inicio;
+
+    if (!inicio) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: this.tituloVoz,
+        detail: AVISO_VOZ_NO_SOPORTADA,
+        life: 5000,
+      });
+    }
+  }
+
+  detenerLectura(): void {
+    this.templateService.detener();
+    this.leyendo = false;
+  }
 
   get config() {
     return this.store.configuracion;

@@ -1,0 +1,41 @@
+<header class="topbar">
+  <div class="topbar__izquierda">
+    <button
+      type="button"
+      class="topbar__menu"
+      [attr.aria-label]="menuLabel"
+      [title]="menuLabel"
+      (click)="abrirMenu()"
+    >
+      <i class="pi pi-bars"></i>
+    </button>
+    <h1 class="topbar__titulo">{{ titulo }}</h1>
+  </div>
+
+  <div class="topbar__derecha">
+    <div class="topbar__busqueda">
+      <i class="pi pi-search topbar__busqueda-icono"></i>
+      <input
+        type="text"
+        class="topbar__busqueda-input"
+        [placeholder]="busquedaPlaceholder"
+        [(ngModel)]="termino"
+        (keyup.enter)="buscar()"
+      />
+    </div>
+
+    <span class="topbar__periodo">{{ periodo }}</span>
+
+    <span class="topbar__divisor"></span>
+
+    <button
+      type="button"
+      class="topbar__tema"
+      [attr.aria-label]="tituloTema"
+      [title]="tituloTema"
+      (click)="alternarTema()"
+    >
+      <i [ngClass]="iconoTema"></i>
+    </button>
+  </div>
+</header>

@@ -26,6 +26,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ActaWizardComponent } from './features/actas/acta-wizard/Interface/acta-wizard.component';
 import { ActasIndexTableComponent } from './features/actas/components/actas-index-table/Interface/actas-index-table.component';
+import { ActasStepperComponent } from './features/actas/components/actas-stepper/Interface/actas-stepper.component';
 import { ActaPreviewComponent } from './features/actas/components/acta-preview/Interface/acta-preview.component';
 import { StepExportComponent } from './pages/paso-4-exportacion/Interface/step-export.component';
 import { StepTemplateComponent } from './pages/paso-3-plantilla/Interface/step-template.component';
@@ -35,13 +36,27 @@ import { StudentEditDialogComponent } from './features/actas/components/student-
 import { StudentsTableComponent } from './features/actas/components/students-table/Interface/students-table.component';
 import { HeaderComponent } from './shared/components/header/Interface/header.component';
 import { LoadingScreenComponent } from './shared/components/loading-screen/Interface/loading-screen.component';
-import { DashboardComponent } from './pages/dashboard/Interface/dashboard.component';
+import { PageHeaderComponent } from './shared/components/page-header/Interface/page-header.component';
+import { LayoutComponent } from './layout/Interface/layout.component';
+import { SidebarComponent } from './layout/components/sidebar/Interface/sidebar.component';
+import { TopbarComponent } from './layout/components/topbar/Interface/topbar.component';
+import { AgendaComponent } from './pages/agenda/Interface/agenda.component';
+import { CorreoComponent } from './pages/correo/Interface/correo.component';
+import { FirmaComponent } from './pages/firma/Interface/firma.component';
+import { PanelComponent } from './pages/panel/Interface/panel.component';
+import { TramitesComponent } from './pages/tramites/Interface/tramites.component';
+import { VerificadorComponent } from './pages/verificador/Interface/verificador.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LayoutComponent,
+    SidebarComponent,
+    TopbarComponent,
+    PageHeaderComponent,
     HeaderComponent,
-    LoadingScreenComponent,    ActaWizardComponent,
+    LoadingScreenComponent,
+    ActaWizardComponent,
     StepUploadComponent,
     StepValidateComponent,
     StepTemplateComponent,
@@ -50,7 +65,13 @@ import { DashboardComponent } from './pages/dashboard/Interface/dashboard.compon
     StudentEditDialogComponent,
     ActaPreviewComponent,
     ActasIndexTableComponent,
-    DashboardComponent,
+    ActasStepperComponent,
+    PanelComponent,
+    VerificadorComponent,
+    FirmaComponent,
+    AgendaComponent,
+    TramitesComponent,
+    CorreoComponent,
   ],
   imports: [
     BrowserModule,

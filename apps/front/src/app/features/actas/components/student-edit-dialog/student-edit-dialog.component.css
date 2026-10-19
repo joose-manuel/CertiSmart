@@ -83,8 +83,8 @@
 
 .notice--info {
   background: var(--brand-50);
-  border: 1px solid #bfdbfe;
-  color: #1e40af;
+  border: 1px solid var(--brand-200);
+  color: var(--brand-700);
 }
 
 .asignaturas {

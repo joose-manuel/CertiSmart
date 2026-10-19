@@ -1,0 +1,63 @@
+:host {
+  display: block;
+}
+
+.shell {
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+  background: var(--cs-bg);
+}
+
+.shell__sidebar {
+  width: 16rem;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 40;
+}
+
+.shell__principal {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell__contenido {
+  flex: 1 1 auto;
+  padding: 1.5rem;
+  min-width: 0;
+}
+
+.shell__overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .shell__sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 0 20px 45px -20px rgba(15, 23, 42, 0.45);
+  }
+
+  .shell__sidebar--abierto {
+    transform: translateX(0);
+  }
+
+  .shell__overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(2px);
+  }
+
+  .shell__contenido {
+    padding: 1rem;
+  }
+}

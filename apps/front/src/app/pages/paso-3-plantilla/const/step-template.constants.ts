@@ -25,3 +25,18 @@ export const ETIQUETA_AJUSTES = 'Parámetros de Emisión';
 
 export const TEXTO_VISTA_PREVIA =
   'Cualquier cambio se reflejará al instante en la vista previa de la constancia.';
+
+/* ---------------- Lectura por voz ---------------- */
+export const TITULO_VOZ = 'Lectura por voz de la constancia';
+
+export const ETIQUETA_ESCUCHAR = 'Escuchar constancia';
+export const ETIQUETA_DETENER = 'Detener lectura';
+
+export const ESTADO_VOZ_LISTO = 'Listo';
+export const ESTADO_VOZ_ACTIVO = 'En reproducción';
+
+export const AYUDA_VOZ =
+  'Reproduce el texto de la constancia para revisarlo antes de emitir el lote.';
+
+export const AVISO_VOZ_NO_SOPORTADA =
+  'Este navegador no soporta la síntesis de voz.';

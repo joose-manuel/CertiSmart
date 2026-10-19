@@ -1,0 +1,17 @@
+<section class="page-header">
+  <div class="page-header__info">
+    <span class="page-header__icono">
+      <i [ngClass]="vista.icono"></i>
+    </span>
+    <div class="page-header__texto">
+      <h2 class="page-header__titulo">{{ vista.titulo }}</h2>
+      <p class="page-header__subtitulo" *ngIf="vista.subtitulo">
+        {{ vista.subtitulo }}
+      </p>
+    </div>
+  </div>
+
+  <div class="page-header__acciones" [attr.aria-label]="accionesLabel">
+    <ng-content></ng-content>
+  </div>
+</section>

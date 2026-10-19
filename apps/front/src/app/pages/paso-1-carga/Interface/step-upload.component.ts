@@ -16,7 +16,8 @@ import {
 } from '../../../core/constants/actas.constants';
 import { ActasStoreService } from '../../../core/services/actas-store.service';
 import { ActasApiService } from '../../../core/services/actas-api.service';
-import { descargarBlob, mensajeHttpError } from '../../../core/utils/descarga.util';
+import { PlantillaService } from '../../../core/services/plantilla.service';
+import { mensajeHttpError } from '../../../core/utils/descarga.util';
 import {
   STEP_UPLOAD_ACEPTADOS,
   STEP_UPLOAD_TEXTO,
@@ -50,6 +51,7 @@ export class StepUploadComponent implements OnDestroy {
     private readonly messageService: MessageService,
     private readonly store: ActasStoreService,
     private readonly api: ActasApiService,
+    private readonly plantilla: PlantillaService,
   ) {}
 
   get pesoLegible(): string {
@@ -151,13 +153,7 @@ export class StepUploadComponent implements OnDestroy {
 
   async descargarPlantilla(): Promise<void> {
     try {
-      const resp = await firstValueFrom(this.api.descargarPlantilla());
-      const nombre =
-        resp.headers.get('X-Nombre-Archivo')?.trim() ||
-        'Plantilla_Oficial_CertiSmart.xlsx';
-      if (resp.body) {
-        descargarBlob(resp.body, nombre);
-      }
+      await this.plantilla.descargar();
       this.messageService.add({
         severity: 'success',
         summary: 'Plantilla oficial',

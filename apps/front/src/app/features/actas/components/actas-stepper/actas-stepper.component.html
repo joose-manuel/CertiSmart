@@ -1,0 +1,24 @@
+<div class="pasos" role="tablist" [attr.aria-label]="label">
+  <button
+    *ngFor="let paso of pasos"
+    type="button"
+    role="tab"
+    class="paso"
+    [class.paso--activo]="paso.activo"
+    [class.paso--completado]="paso.completado && !paso.activo"
+    [class.paso--bloqueado]="!paso.habilitado"
+    [attr.aria-selected]="paso.activo"
+    [attr.aria-disabled]="!paso.habilitado"
+    [disabled]="!paso.habilitado"
+    (click)="ir(paso.id, paso.habilitado, paso.activo)"
+  >
+    <span class="paso__num">
+      <i class="pi pi-check" *ngIf="paso.completado && !paso.activo"></i>
+      <ng-container *ngIf="!paso.completado || paso.activo">{{ paso.numero }}</ng-container>
+    </span>
+    <span class="paso__texto">
+      <span class="paso__label">{{ paso.label }}</span>
+      <span class="paso__hint">{{ paso.hint }}</span>
+    </span>
+  </button>
+</div>

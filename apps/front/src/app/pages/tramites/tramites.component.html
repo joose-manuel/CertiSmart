@@ -1,0 +1,78 @@
+<div class="tramites">
+  <app-page-header
+    [titulo]="titulo"
+    [subtitulo]="subtitulo"
+    icono="pi pi-table"
+  >
+    <span class="resumen">{{ resumen }}</span>
+    <p-button
+      [label]="etiquetaNuevo"
+      icon="pi pi-plus"
+      (onClick)="nuevoTramite()"
+    ></p-button>
+  </app-page-header>
+
+  <p class="aviso">
+    <i class="pi pi-info-circle"></i>
+    {{ avisoDemo }}
+  </p>
+
+  <div class="tablero">
+    <section
+      class="columna"
+      *ngFor="let columna of columnas"
+      [ngClass]="[
+        'columna--' + columna.tono,
+        columnaActiva === columna.id ? 'columna--activa' : ''
+      ]"
+      (dragover)="onDragOver($event, columna.id)"
+      (dragleave)="onDragLeave(columna.id)"
+      (drop)="onDrop($event, columna.id)"
+    >
+      <header class="columna__head">
+        <span class="columna__punto"></span>
+        <div class="columna__info">
+          <strong>{{ columna.label }}</strong>
+          <span>{{ columna.descripcion }}</span>
+        </div>
+        <span class="columna__contador">{{ tarjetas(columna.id).length }}</span>
+      </header>
+
+      <p class="columna__vacio" *ngIf="!tarjetas(columna.id).length">
+        <i class="pi pi-inbox"></i>{{ sinTarjetas }}
+      </p>
+
+      <article
+        class="ficha"
+        *ngFor="let tramite of tarjetas(columna.id)"
+        draggable="true"
+        [class.ficha--arrastrando]="arrastrando === tramite.id"
+        (dragstart)="onDragStart($event, tramite)"
+        (dragend)="onDragEnd()"
+      >
+        <div class="ficha__top">
+          <span class="ficha__radicado">{{ tramite.radicado }}</span>
+          <span
+            class="ficha__prioridad"
+            [ngClass]="'ficha__prioridad--' + tramite.prioridad"
+          >
+            {{ prioridad(tramite.prioridad) }}
+          </span>
+        </div>
+
+        <h4 class="ficha__titulo">{{ tramite.titulo }}</h4>
+
+        <span class="ficha__solicitante">{{ tramite.solicitante }}</span>
+
+        <div class="ficha__pie">
+          <span class="ficha__etiqueta">
+            <i class="pi pi-tag"></i>{{ tramite.etiqueta }}
+          </span>
+          <span class="ficha__dias">
+            <i class="pi pi-clock"></i>{{ tramite.diasEnCola }} d
+          </span>
+        </div>
+      </article>
+    </section>
+  </div>
+</div>

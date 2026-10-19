@@ -1,0 +1,81 @@
+<aside class="sidebar">
+  <div class="sidebar__scroll">
+    <a
+      class="sidebar__marca"
+      routerLink="/panel"
+      [title]="logoTitle"
+      [attr.aria-label]="marca.logoAlt"
+    >
+      <span class="sidebar__logo">
+        <img [src]="marca.logo" [alt]="marca.logoAlt" />
+      </span>
+      <span class="sidebar__marca-texto">
+        <strong class="sidebar__nombre">{{ marca.nombre }}</strong>
+        <span class="sidebar__dependencia">{{ marca.subtitulo }}</span>
+      </span>
+    </a>
+
+    <nav class="sidebar__nav" [attr.aria-label]="navLabel">
+      <ng-container *ngFor="let entrada of entradas()">
+        <a
+          *ngIf="!entrada.esSeccion"
+          class="nav-item"
+          [class.nav-item--activo]="entrada.activo"
+          [routerLink]="entrada.ruta"
+        >
+          <span class="nav-item__left">
+            <i [ngClass]="entrada.icono"></i>
+            <span class="nav-item__label">{{ entrada.label }}</span>
+          </span>
+          <span
+            *ngIf="entrada.badge"
+            class="nav-badge"
+            [ngClass]="'nav-badge--' + entrada.badge.tono"
+          >
+            {{ entrada.badge.valor }}
+          </span>
+        </a>
+
+        <div *ngIf="entrada.esSeccion" class="nav-seccion">
+          <button
+            type="button"
+            class="nav-item nav-item--seccion"
+            [class.nav-item--activo]="entrada.activo"
+            [attr.aria-expanded]="entrada.abierta"
+            (click)="alternarSeccion(entrada.id)"
+          >
+            <span class="nav-item__left">
+              <i [ngClass]="entrada.icono"></i>
+              <span class="nav-item__label">{{ entrada.label }}</span>
+            </span>
+            <i
+              class="nav-item__chevron"
+              [ngClass]="iconoChevron"
+              [class.nav-item__chevron--abierto]="entrada.abierta"
+            ></i>
+          </button>
+
+          <div class="nav-submenu" *ngIf="entrada.abierta">
+            <a
+              *ngFor="let hijo of entrada.hijos"
+              class="nav-subitem"
+              [class.nav-subitem--activo]="hijo.activo"
+              [routerLink]="hijo.ruta"
+            >
+              <span class="nav-subitem__bullet"></span>
+              {{ hijo.label }}
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </nav>
+  </div>
+
+  <div class="sidebar__perfil" [attr.aria-label]="perfilLabel">
+    <span class="sidebar__avatar">{{ usuario.iniciales }}</span>
+    <span class="sidebar__perfil-texto">
+      <strong>{{ usuario.nombre }}</strong>
+      <span>{{ usuario.dependencia }}</span>
+    </span>
+  </div>
+</aside>

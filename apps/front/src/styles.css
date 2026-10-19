@@ -1,20 +1,20 @@
 /* ============================================================
-   CertiSmart · tokens de marca y overrides de PrimeNG
+   SGA Univalle · tokens de marca y overrides de PrimeNG
    ============================================================ */
 :root {
-  /* Paleta de marca (tomada del diseño de referencia) */
-  --brand-50: #eff6ff;
-  --brand-100: #dbeafe;
-  --brand-200: #bfdbfe;
-  --brand-500: #2563eb;
-  --brand-600: #1d4ed8;
-  --brand-700: #1e40af;
-  --brand-800: #1e3a8a;
-  --brand-900: #00236f;
-  --brand-950: #00164e;
+  /* Paleta institucional Universidad del Valle (rojo oficial) */
+  --brand-50: #fdf2f2;
+  --brand-100: #fbe3e3;
+  --brand-200: #f5c6c6;
+  --brand-500: #b30000;
+  --brand-600: #990000;
+  --brand-700: #7a0000;
+  --brand-800: #630000;
+  --brand-900: #4a0000;
+  --brand-950: #330000;
 
   /* Superficies */
-  --cs-bg: #f1f5f9;
+  --cs-bg: #f8fafc;
   --cs-surface: #ffffff;
   --cs-border: #e2e8f0;
   --cs-text: #0f172a;
@@ -22,9 +22,9 @@
   --cs-text-soft: #64748b;
 
   /* PrimeNG: color primario y tipografía de marca */
-  --primary-color: #1d4ed8;
+  --primary-color: #990000;
   --primary-color-text: #ffffff;
-  --font-family: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto,
+  --font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
 }
 
@@ -51,8 +51,8 @@ body {
   --cs-text: #e2e8f0;
   --cs-text-muted: #94a3b8;
   --cs-text-soft: #64748b;
-  --primary-color: #60a5fa;
-  --primary-color-text: #0f172a;
+  --primary-color: #f87171;
+  --primary-color-text: #4a0000;
 }
 html[data-theme='dark'] body {
   background: var(--cs-bg);
@@ -149,7 +149,7 @@ html[data-theme='dark'] .p-inputtext:enabled:focus,
 html[data-theme='dark'] .p-dropdown:not(.p-disabled):hover,
 html[data-theme='dark'] .p-inputnumber .p-inputnumber-input:enabled:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.15rem rgba(96, 165, 250, 0.25);
+  box-shadow: 0 0 0 0.15rem rgba(153, 0, 0, 0.25);
 }
 
 html[data-theme='dark'] .p-dropdown-panel,
@@ -194,7 +194,7 @@ html[data-theme='dark'] .p-button-text {
 }
 html[data-theme='dark'] .p-tag {
   background: var(--brand-800);
-  color: #bfdbfe;
+  color: #ffdada;
 }
 
 html[data-theme='dark'] .p-datatable {
@@ -425,7 +425,7 @@ html[data-theme='dark'] .filecard:hover {
   border-color: var(--primary-color);
 }
 html[data-theme='dark'] .dropzone--active {
-  background: rgba(37, 99, 235, 0.15);
+  background: rgba(153, 0, 0, 0.15);
   border-color: var(--primary-color);
 }
 html[data-theme='dark'] .dropzone--error {
@@ -455,8 +455,8 @@ html[data-theme='dark'] .banner--ok .banner__text {
   color: #86efac;
 }
 html[data-theme='dark'] .aviso {
-  background: rgba(96, 165, 250, 0.08);
-  border-color: rgba(96, 165, 250, 0.3);
+  background: rgba(153, 0, 0, 0.08);
+  border-color: rgba(153, 0, 0, 0.3);
   color: var(--cs-text-soft) !important;
 }
 html[data-theme='dark'] .stat__value.mono,
@@ -484,4 +484,290 @@ html[data-theme='dark'] .panel__subtitle {
 }
 html[data-theme='dark'] .chart tooltip .pi {
   color: var(--cs-text) !important;
+}
+
+/* ============================================================
+   SGA Univalle · rojo institucional aplicado a los widgets PrimeNG
+   El tema Lara trae el azul hardcodeado en sus clases base: aquí se
+   re-tiñen las superficies primarias de todo el sistema.
+   ============================================================ */
+
+/* ---------- Botones ---------- */
+.p-button {
+  background: var(--brand-600);
+  border: 1px solid var(--brand-600);
+  color: #ffffff;
+}
+.p-button:enabled:hover {
+  background: var(--brand-700);
+  border-color: var(--brand-700);
+  color: #ffffff;
+}
+.p-button:enabled:active {
+  background: var(--brand-800);
+  border-color: var(--brand-800);
+  color: #ffffff;
+}
+.p-button:enabled:focus,
+.p-button:focus {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(153, 0, 0, 0.35);
+}
+.p-button.p-button-secondary {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #334155;
+}
+.p-button.p-button-secondary.p-button-outlined {
+  background: transparent;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+.p-button.p-button-secondary.p-button-outlined:enabled:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #1e293b;
+}
+.p-button.p-button-secondary:enabled:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  color: #1e293b;
+}
+.p-button.p-button-secondary:enabled:active {
+  background: #cbd5e1;
+  border-color: #cbd5e1;
+  color: #1e293b;
+}
+.p-button.p-button-outlined {
+  background: transparent;
+  border-color: var(--brand-200);
+  color: var(--brand-600);
+}
+.p-button.p-button-outlined:enabled:hover {
+  background: var(--brand-50);
+  border-color: var(--brand-200);
+  color: var(--brand-700);
+}
+.p-button.p-button-text {
+  background: transparent;
+  border-color: transparent;
+  color: var(--brand-600);
+}
+.p-button.p-button-text:enabled:hover {
+  background: var(--brand-50);
+  border-color: transparent;
+  color: var(--brand-700);
+}
+.p-button.p-button-text:enabled:active {
+  background: var(--brand-100);
+  border-color: transparent;
+  color: var(--brand-700);
+}
+
+/* ---------- Campos de entrada ---------- */
+.p-inputtext:enabled:hover,
+.p-dropdown:not(.p-disabled):hover,
+.p-multiselect:not(.p-disabled):hover {
+  border-color: var(--brand-500);
+}
+.p-inputtext:enabled:focus,
+.p-dropdown:not(.p-disabled).p-focus,
+.p-multiselect:not(.p-disabled).p-focus {
+  border-color: var(--brand-600);
+  box-shadow: 0 0 0 0.2rem rgba(153, 0, 0, 0.15);
+}
+.p-inputnumber .p-inputnumber-input:enabled:focus,
+.p-calendar .p-inputtext:enabled:focus {
+  border-color: var(--brand-600);
+  box-shadow: 0 0 0 0.2rem rgba(153, 0, 0, 0.15);
+}
+
+/* ---------- Selección ---------- */
+.p-selectbutton .p-button {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  color: var(--cs-text-muted);
+}
+.p-selectbutton .p-button:not(.p-disabled):hover {
+  background: var(--brand-50);
+  border-color: var(--brand-200);
+  color: var(--brand-700);
+}
+.p-selectbutton .p-button.p-highlight {
+  background: var(--brand-600);
+  border-color: var(--brand-600);
+  color: #ffffff;
+}
+.p-selectbutton .p-button.p-highlight:not(.p-disabled):hover {
+  background: var(--brand-700);
+  border-color: var(--brand-700);
+  color: #ffffff;
+}
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  background: var(--brand-50);
+  color: var(--brand-700);
+}
+.p-dropdown-panel .p-dropdown-header .p-dropdown-filter:focus {
+  border-color: var(--brand-600);
+  box-shadow: 0 0 0 0.2rem rgba(153, 0, 0, 0.15);
+}
+.p-checkbox .p-checkbox-box.p-highlight {
+  background: var(--brand-600);
+  border-color: var(--brand-600);
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+  background: var(--brand-700);
+  border-color: var(--brand-700);
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+  border-color: var(--brand-600);
+  box-shadow: 0 0 0 0.2rem rgba(153, 0, 0, 0.15);
+}
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: var(--brand-600);
+}
+.p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover
+  .p-inputswitch-slider {
+  background: var(--brand-700);
+}
+.p-inputswitch.p-focus .p-inputswitch-slider {
+  box-shadow: 0 0 0 0.2rem rgba(153, 0, 0, 0.15);
+}
+.p-selectbutton .p-button.p-highlight {
+  background: var(--brand-600);
+  border-color: var(--brand-600);
+  color: #ffffff;
+}
+.p-selectbutton .p-button.p-highlight:hover {
+  background: var(--brand-700);
+  border-color: var(--brand-700);
+  color: #ffffff;
+}
+
+/* ---------- Calendario ---------- */
+.p-datepicker table td > span.p-highlight {
+  background: var(--brand-600);
+  color: #ffffff;
+}
+.p-datepicker table td > span.p-highlight:hover {
+  background: var(--brand-700);
+  color: #ffffff;
+}
+.p-datepicker table td.p-datepicker-today > span {
+  background: var(--brand-100);
+  color: var(--brand-700);
+}
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month:hover,
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year:hover {
+  background: var(--brand-50);
+  color: var(--brand-700);
+}
+
+/* ---------- Progreso, paginación y tablas ---------- */
+.p-progressbar .p-progressbar-value {
+  background: var(--brand-600);
+}
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: var(--brand-100);
+  color: var(--brand-700);
+}
+.p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
+  background: var(--brand-50);
+  color: var(--brand-700);
+}
+.p-datatable .p-sortable-column:focus {
+  box-shadow: inset 0 0 0 0.15rem rgba(153, 0, 0, 0.25);
+}
+.p-datatable .p-sortable-column.p-highlight,
+.p-datatable .p-sortable-column.p-highlight:hover {
+  background: var(--brand-50);
+  color: var(--brand-700);
+}
+.p-datatable.p-datatable-selectable
+  .p-datatable-tbody
+  > tr.p-selectable-row:not(.p-highlight):hover {
+  background: var(--brand-50);
+}
+.p-datatable.p-datatable-selectable
+  .p-datatable-tbody
+  > tr.p-selectable-row:focus {
+  outline-color: var(--brand-200);
+}
+
+/* ---------- Etiquetas, avatares y diálogos ---------- */
+.p-tag.p-tag-info {
+  background: var(--brand-100);
+  color: var(--brand-700);
+}
+.p-dialog .p-dialog-header .p-dialog-title {
+  color: var(--brand-900);
+}
+.p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover {
+  background: var(--brand-50);
+  color: var(--brand-700);
+}
+
+/* ---------- Pasos (p-steps) ---------- */
+.p-steps .p-steps-item.p-highlight .p-steps-number {
+  background: var(--brand-600);
+  border-color: var(--brand-600);
+  color: #ffffff;
+}
+.p-steps .p-steps-item.p-highlight .p-steps-title {
+  color: var(--brand-700);
+  font-weight: 700;
+}
+
+/* ---------- Enlaces ---------- */
+a {
+  color: var(--brand-600);
+}
+
+/* ---------- Rojo Univalle en modo oscuro ---------- */
+html[data-theme='dark'] .p-button.p-button-outlined {
+  background: transparent;
+  border-color: rgba(248, 113, 113, 0.45);
+  color: #ffb3b3;
+}
+html[data-theme='dark'] .p-button.p-button-outlined:enabled:hover {
+  background: rgba(248, 113, 113, 0.14);
+  border-color: rgba(248, 113, 113, 0.6);
+  color: #ffdada;
+}
+html[data-theme='dark'] .p-button.p-button-text {
+  background: transparent;
+  border-color: transparent;
+  color: #ffb3b3;
+}
+html[data-theme='dark'] .p-button.p-button-text:enabled:hover {
+  background: rgba(248, 113, 113, 0.14);
+  color: #ffdada;
+}
+html[data-theme='dark'] .p-button.p-button-secondary.p-button-outlined {
+  background: var(--cs-surface);
+  border-color: var(--cs-border);
+  color: var(--cs-text);
+}
+html[data-theme='dark'] .p-tag.p-tag-info {
+  background: rgba(248, 113, 113, 0.18);
+  color: #ffdada;
+}
+html[data-theme='dark'] .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: rgba(248, 113, 113, 0.2);
+  color: #ffdada;
+}
+html[data-theme='dark'] .p-dialog .p-dialog-header .p-dialog-title {
+  color: var(--cs-text);
+}
+html[data-theme='dark'] .p-datatable.p-datatable-selectable
+  .p-datatable-tbody
+  > tr.p-selectable-row:not(.p-highlight):hover {
+  background: var(--brand-800);
+  color: #ffffff;
+}
+html[data-theme='dark'] .p-datepicker table td.p-datepicker-today > span {
+  background: rgba(248, 113, 113, 0.2);
+  color: #ffdada;
 }

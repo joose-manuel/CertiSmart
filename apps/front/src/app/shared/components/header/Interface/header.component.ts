@@ -1,5 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ThemeService } from '../../../../core/services/theme.service';
 import { HeaderBrand, HeaderStep, HeaderUser } from './header.interface';
 import { HeaderService } from '../Services/header.service';
 
@@ -16,10 +17,12 @@ export class HeaderComponent implements OnInit {
   user!: HeaderUser;
   steps: MenuItem[] = [];
 
-  dark = false;
   hidden = false;
 
-  constructor(private readonly headerService: HeaderService) {}
+  constructor(
+    private readonly headerService: HeaderService,
+    private readonly theme: ThemeService,
+  ) {}
 
   ngOnInit(): void {
     this.brand = this.headerService.getBrand();
@@ -28,22 +31,15 @@ export class HeaderComponent implements OnInit {
       .getSteps()
       .map((step: HeaderStep) => ({ label: step.label, icon: step.icon }));
 
-    const stored = localStorage.getItem('certismart-theme');
-    this.dark =
-      stored === 'dark' ||
-      (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    this.applyTheme();
+    this.theme.inicializar();
+  }
+
+  get dark(): boolean {
+    return this.theme.oscuro;
   }
 
   toggleTheme(): void {
-    this.dark = !this.dark;
-    this.applyTheme();
-    localStorage.setItem('certismart-theme', this.dark ? 'dark' : 'light');
-  }
-
-  private applyTheme(): void {
-    document.documentElement.dataset['theme'] = this.dark ? 'dark' : 'light';
-    document.documentElement.classList.toggle('theme-dark', this.dark);
+    this.theme.alternar();
   }
 
   @HostListener('window:scroll')

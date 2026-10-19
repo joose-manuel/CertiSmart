@@ -1,0 +1,139 @@
+<div class="panel">
+  <app-page-header
+    [titulo]="titulo"
+    [subtitulo]="subtitulo"
+    icono="pi pi-th-large"
+  >
+    <p-button
+      [label]="etiquetaNuevaEmision"
+      icon="pi pi-plus"
+      [routerLink]="['/actas']"
+    ></p-button>
+  </app-page-header>
+
+  <div class="metricas">
+    <article
+      class="metrica"
+      *ngFor="let metrica of metricas"
+      [ngClass]="'metrica--' + metrica.tono"
+    >
+      <header class="metrica__head">
+        <span class="metrica__icono"><i [ngClass]="metrica.icono"></i></span>
+        <span
+          class="metrica__delta"
+          *ngIf="metrica.delta"
+          [ngClass]="'metrica__delta--' + (metrica.deltaTono || 'flat')"
+        >
+          <i class="pi" [ngClass]="iconoDelta(metrica.deltaTono)"></i>
+          {{ metrica.delta }}
+        </span>
+      </header>
+
+      <span class="metrica__valor">{{ metrica.valor }}</span>
+      <span class="metrica__label">{{ metrica.label }}</span>
+      <span class="metrica__pie">{{ metrica.pie }}</span>
+    </article>
+  </div>
+
+  <div class="columnas">
+    <div class="columnas__principal">
+      <section class="tarjeta">
+        <header class="tarjeta__head">
+          <h3 class="tarjeta__titulo">
+            <i class="pi pi-users"></i>{{ tituloNomina }}
+          </h3>
+          <p-button
+            [label]="etiquetaIrActas"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            size="small"
+            severity="secondary"
+            [outlined]="true"
+            [routerLink]="['/actas']"
+          ></p-button>
+        </header>
+
+        <div class="nomina" *ngIf="nomina.hayDatos; else sinNomina">
+          <div class="nomina__stat">
+            <span class="nomina__valor">{{ nomina.total }}</span>
+            <span class="nomina__label">Registros</span>
+          </div>
+          <div class="nomina__stat">
+            <span class="nomina__valor">{{ nomina.validos }}</span>
+            <span class="nomina__label">Válidos</span>
+          </div>
+          <div class="nomina__stat">
+            <span class="nomina__valor">{{ nomina.observaciones }}</span>
+            <span class="nomina__label">Con observaciones</span>
+          </div>
+          <div class="nomina__stat">
+            <span class="nomina__valor">{{ nomina.seleccionados }}</span>
+            <span class="nomina__label">Seleccionados</span>
+          </div>
+        </div>
+
+        <ng-template #sinNomina>
+          <p class="tarjeta__vacio">
+            <i class="pi pi-info-circle"></i> {{ mensajeSinNomina }}
+          </p>
+        </ng-template>
+      </section>
+
+      <section class="tarjeta">
+        <header class="tarjeta__head">
+          <div>
+            <h3 class="tarjeta__titulo">
+              <i class="pi pi-chart-bar"></i>{{ tituloFlujo }}
+            </h3>
+            <p class="tarjeta__subtitulo">{{ subtituloFlujo }}</p>
+          </div>
+        </header>
+
+        <div class="flujo">
+          <div class="flujo__fase" *ngFor="let fase of flujo">
+            <div class="flujo__top">
+              <span class="flujo__label">{{ fase.label }}</span>
+              <span class="flujo__valor">
+                {{ fase.valor }}
+                <small>{{ fase.porcentaje }}%</small>
+              </span>
+            </div>
+            <div class="flujo__barra">
+              <span
+                class="flujo__relleno"
+                [ngClass]="'flujo__relleno--' + fase.tono"
+                [style.width.%]="fase.porcentaje"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="columnas__lateral">
+      <section class="tarjeta">
+        <header class="tarjeta__head">
+          <h3 class="tarjeta__titulo">
+            <i class="pi pi-clock"></i>{{ tituloActividad }}
+          </h3>
+        </header>
+
+        <ol class="actividad">
+          <li class="actividad__item" *ngFor="let evento of actividad">
+            <span
+              class="actividad__icono"
+              [ngClass]="'actividad__icono--' + evento.tono"
+            >
+              <i [ngClass]="evento.icono"></i>
+            </span>
+            <div class="actividad__texto">
+              <strong>{{ evento.titulo }}</strong>
+              <span class="actividad__detalle">{{ evento.detalle }}</span>
+              <span class="actividad__hace">{{ evento.hace }}</span>
+            </div>
+          </li>
+        </ol>
+      </section>
+    </aside>
+  </div>
+</div>

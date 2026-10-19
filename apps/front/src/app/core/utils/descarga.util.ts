@@ -21,7 +21,7 @@ export async function mensajeHttpError(
   }
   if (err.status === 0) {
     return (
-      'No se pudo conectar con el backend CertiSmart. ' +
+      'No se pudo conectar con el backend. ' +
       'Verifica que `npm run back` esté corriendo en otra terminal.'
     );
   }

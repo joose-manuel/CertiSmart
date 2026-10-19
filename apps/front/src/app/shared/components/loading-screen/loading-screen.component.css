@@ -5,10 +5,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(1200px 700px at 10% -10%, #1e3a8a 0%, #0b1220 35%, #020617 100%);
+  background: radial-gradient(1200px 700px at 10% -10%, #630000 0%, #26060a 35%, #160305 100%);
   color: #ffffff;
   overflow: hidden;
-  font-family: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   animation: loading-fade-in 0.4s ease-out;
 }
 
@@ -16,8 +16,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(600px 400px at 20% 20%, rgba(37, 99, 235, 0.35), transparent 70%),
-    radial-gradient(500px 350px at 80% 75%, rgba(99, 102, 241, 0.3), transparent 70%);
+    radial-gradient(600px 400px at 20% 20%, rgba(153, 0, 0, 0.45), transparent 70%),
+    radial-gradient(500px 350px at 80% 75%, rgba(122, 0, 0, 0.4), transparent 70%);
   filter: blur(28px);
   animation: loading-aurora 7s ease-in-out infinite alternate;
 }
@@ -28,22 +28,30 @@
   width: min(92vw, 460px);
   padding: 2.5rem 2.25rem;
   border-radius: 1.25rem;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(96, 165, 250, 0.25);
+  background: rgba(38, 6, 10, 0.7);
+  border: 1px solid rgba(248, 113, 113, 0.25);
   backdrop-filter: blur(14px);
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 
 .loading-screen__logo {
-  font-size: 1.9rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 0.85rem;
+  padding: 0.65rem 1rem;
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.5);
 }
-.loading-screen__logo span {
-  color: #6366f1;
+
+.loading-screen__logo-img {
+  display: block;
+  height: 2.35rem;
+  width: auto;
 }
-.loading-screen__logo strong { color: #3b82f6; }
 
 .loading-screen__title {
   font-size: 1.15rem;
@@ -53,7 +61,7 @@
 }
 .loading-screen__subtitle {
   font-size: 0.9rem;
-  color: #bfdbfe;
+  color: #ffdada;
   margin: 0 0 1.5rem;
   line-height: 1.4;
 }
@@ -67,12 +75,12 @@
 .loading-screen__ring {
   width: 100%;
   height: 100%;
-  border: 4px solid rgba(96, 165, 250, 0.15);
-  border-top-color: #6366f1;
-  border-right-color: #3b82f6;
+  border: 4px solid rgba(248, 113, 113, 0.15);
+  border-top-color: #ef4444;
+  border-right-color: #f87171;
   border-radius: 50%;
   animation: loading-spin 1.1s linear infinite;
-  box-shadow: 0 0 48px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 48px rgba(239, 68, 68, 0.25);
 }
 .loading-screen__dots {
   position: absolute;
@@ -86,7 +94,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #60a5fa;
+  background: #f87171;
   animation: loading-bounce 1.2s ease-in-out infinite;
 }
 .loading-screen__dots span:nth-child(2) { animation-delay: 0.15s; }
@@ -103,23 +111,23 @@
 }
 .loading-screen__progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #3b82f6, #6366f1, #818cf8);
+  background: linear-gradient(90deg, #ef4444, #990000, #f87171);
   background-size: 200% 100%;
   border-radius: 999px;
   transition: width 0.35s ease;
   animation: loading-shimmer 1.6s linear infinite;
-  box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
 }
 .loading-screen__status {
   font-size: 0.85rem;
-  color: #bfdbfe;
+  color: #ffdada;
   margin: 0.85rem 0 0;
 }
 .loading-screen__actions {
   margin-top: 1rem;
 }
 .loading-screen__btn {
-  background: #3b82f6;
+  background: #990000;
   color: #ffffff;
   border: none;
   border-radius: 0.6rem;
@@ -129,7 +137,7 @@
   transition: background 0.2s, transform 0.2s;
 }
 .loading-screen__btn:hover {
-  background: #2563eb;
+  background: #7a0000;
   transform: translateY(-1px);
 }
 

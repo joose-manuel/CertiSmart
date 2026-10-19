@@ -1,0 +1,341 @@
+:host {
+  display: block;
+}
+
+.verificador {
+  max-width: 80rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--brand-200);
+  background: var(--brand-50);
+  color: var(--brand-700);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.columnas {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.tarjeta {
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  border-radius: 1rem;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.tarjeta__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.tarjeta__titulo {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--cs-text);
+}
+
+.tarjeta__titulo i {
+  color: var(--brand-600);
+}
+
+/* ---------------- Caso seleccionado ---------------- */
+.caso {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.85rem;
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.03);
+}
+
+.caso__nombre {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cs-text);
+  line-height: 1.35;
+}
+
+.caso__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.6875rem;
+  color: var(--cs-text-muted);
+}
+
+.caso__meta i {
+  color: var(--cs-text-soft);
+  font-size: 0.7rem;
+}
+
+.resumen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.resumen__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.6rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--cs-border);
+  text-align: center;
+}
+
+.resumen__valor {
+  font-size: 1.1rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--cs-text);
+}
+
+.resumen__valor--ok {
+  color: #047857;
+}
+
+.resumen__valor--warn {
+  color: #b45309;
+}
+
+.resumen__valor--danger {
+  color: #b91c1c;
+}
+
+.resumen__label {
+  font-size: 0.5625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--cs-text-soft);
+}
+
+/* ---------------- Veredicto ---------------- */
+.veredicto {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: 1px solid transparent;
+}
+
+.veredicto--ok {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+
+.veredicto--warn {
+  background: #fffbeb;
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+.veredicto--danger {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.veredicto--neutro {
+  background: rgba(148, 163, 184, 0.16);
+  color: var(--cs-text-muted);
+  border-color: var(--cs-border);
+}
+
+/* ---------------- Checklist ---------------- */
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--cs-border);
+  background: var(--cs-surface);
+  border-left-width: 3px;
+}
+
+.check--ok {
+  border-left-color: #059669;
+}
+
+.check--pendiente {
+  border-left-color: #d97706;
+}
+
+.check--bloqueado {
+  border-left-color: #dc2626;
+  background: #fef2f2;
+}
+
+.check__icono {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  background: rgba(15, 23, 42, 0.05);
+  color: var(--cs-text-muted);
+}
+
+.check--ok .check__icono {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.check--pendiente .check__icono {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.check--bloqueado .check__icono {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.check__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.check__texto strong {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--cs-text);
+}
+
+.check__texto span {
+  font-size: 0.6875rem;
+  color: var(--cs-text-muted);
+  line-height: 1.45;
+}
+
+.check__estado {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--cs-text-soft);
+  flex-shrink: 0;
+}
+
+.check--ok .check__estado {
+  color: #047857;
+}
+
+.check--pendiente .check__estado {
+  color: #b45309;
+}
+
+.check--bloqueado .check__estado {
+  color: #b91c1c;
+}
+
+@media (max-width: 1024px) {
+  .columnas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------------- Modo oscuro ---------------- */
+:host-context(html[data-theme='dark']) .tarjeta {
+  box-shadow: none;
+}
+
+:host-context(html[data-theme='dark']) .caso {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+:host-context(html[data-theme='dark']) .aviso {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.32);
+  color: #ffdada;
+}
+
+:host-context(html[data-theme='dark']) .check {
+  background: var(--cs-surface);
+}
+
+:host-context(html[data-theme='dark']) .check--bloqueado {
+  background: rgba(248, 113, 113, 0.1);
+}
+
+:host-context(html[data-theme='dark']) .check__icono {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+:host-context(html[data-theme='dark']) .veredicto--ok {
+  background: rgba(16, 185, 129, 0.16);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+:host-context(html[data-theme='dark']) .veredicto--warn {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+:host-context(html[data-theme='dark']) .veredicto--danger {
+  background: rgba(248, 113, 113, 0.18);
+  color: #fca5a5;
+  border-color: rgba(248, 113, 113, 0.32);
+}
+
+:host-context(html[data-theme='dark']) .resumen__valor--ok {
+  color: #6ee7b7;
+}
+
+:host-context(html[data-theme='dark']) .resumen__valor--warn {
+  color: #fcd34d;
+}
+
+:host-context(html[data-theme='dark']) .resumen__valor--danger {
+  color: #fca5a5;
+}

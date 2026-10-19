@@ -1,0 +1,119 @@
+<div class="correo">
+  <app-page-header
+    [titulo]="titulo"
+    [subtitulo]="subtitulo"
+    icono="pi pi-inbox"
+  ></app-page-header>
+
+  <p class="aviso">
+    <i class="pi pi-info-circle"></i>
+    {{ avisoDemo }}
+  </p>
+
+  <div class="buzon">
+    <section class="tarjeta">
+      <header class="tarjeta__head">
+        <h3 class="tarjeta__titulo">
+          <i class="pi pi-inbox"></i>{{ tituloBuzon }}
+          <span class="contador" *ngIf="noLeidos > 0">{{ noLeidos }}</span>
+        </h3>
+
+        <p-selectButton
+          [options]="filtros"
+          optionLabel="label"
+          optionValue="value"
+          [ngModel]="filtro"
+          (onChange)="cambiarFiltro($event.value)"
+        ></p-selectButton>
+      </header>
+
+      <p class="vacio" *ngIf="!visibles.length">
+        <i class="pi pi-info-circle"></i>{{ sinMensajes }}
+      </p>
+
+      <div class="lista">
+        <button
+          type="button"
+          class="mensaje"
+          *ngFor="let mensaje of visibles"
+          [class.mensaje--activo]="mensaje.id === seleccionadoId"
+          [class.mensaje--noleido]="mensaje.noLeido"
+          (click)="seleccionar(mensaje)"
+        >
+          <span class="avatar">{{ iniciales(mensaje.remitente) }}</span>
+
+          <span class="mensaje__cuerpo">
+            <span class="mensaje__fila">
+              <span class="mensaje__remitente">{{ mensaje.remitente }}</span>
+              <span class="mensaje__hora">{{ mensaje.hora }}</span>
+            </span>
+
+            <span class="mensaje__asunto">{{ mensaje.asunto }}</span>
+            <span class="mensaje__resumen">{{ mensaje.resumen }}</span>
+
+            <span class="mensaje__etiquetas">
+              <span class="etiqueta" [ngClass]="'etiqueta--' + mensaje.tono">
+                {{ mensaje.etiqueta }}
+              </span>
+              <span class="etiqueta etiqueta--ok" *ngIf="mensaje.atendido">
+                <i class="pi pi-check"></i>Atendido
+              </span>
+              <span class="adjunto" *ngIf="mensaje.adjuntos > 0">
+                <i class="pi pi-paperclip"></i>{{ mensaje.adjuntos }}
+              </span>
+            </span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <section class="tarjeta">
+      <ng-container *ngIf="seleccionado as mensaje; else sinSeleccion">
+        <header class="detalle__head">
+          <div class="detalle__emisor">
+            <span class="avatar">{{ iniciales(mensaje.remitente) }}</span>
+            <div class="detalle__datos">
+              <strong>{{ mensaje.remitente }}</strong>
+              <span>{{ mensaje.fecha }} · {{ mensaje.hora }}</span>
+            </div>
+          </div>
+
+          <h3 class="detalle__asunto">{{ mensaje.asunto }}</h3>
+        </header>
+
+        <div class="detalle__cuerpo">
+          <p *ngFor="let parrafo of parrafos(mensaje.cuerpo)">{{ parrafo }}</p>
+        </div>
+
+        <footer class="detalle__acciones">
+          <p-button
+            [label]="etiquetaResponder"
+            icon="pi pi-reply"
+            (onClick)="responder()"
+          ></p-button>
+          <p-button
+            [label]="etiquetaAtender"
+            icon="pi pi-check"
+            severity="secondary"
+            [outlined]="true"
+            [disabled]="mensaje.atendido"
+            (onClick)="marcarAtendido()"
+          ></p-button>
+          <p-button
+            [label]="etiquetaArchivar"
+            icon="pi pi-box"
+            severity="secondary"
+            [text]="true"
+            (onClick)="archivar()"
+          ></p-button>
+        </footer>
+      </ng-container>
+
+      <ng-template #sinSeleccion>
+        <p class="detalle__vacio">
+          <i class="pi pi-envelope"></i>{{ sinSeleccion }}
+        </p>
+      </ng-template>
+    </section>
+  </div>
+</div>

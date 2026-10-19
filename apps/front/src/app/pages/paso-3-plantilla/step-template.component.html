@@ -70,6 +70,32 @@
         </p>
       </div>
 
+      <div class="voz" *ngIf="puedeLeerVoz">
+        <div class="voz__head">
+          <span class="voz__titulo">
+            <i class="pi pi-volume-up"></i> {{ tituloVoz }}
+          </span>
+          <span class="voz__estado" [class.voz__estado--activo]="leyendo">
+            <i class="pi pi-circle-fill"></i>
+            {{ leyendo ? estadoVozActivo : estadoVozListo }}
+          </span>
+        </div>
+
+        <p class="voz__texto">{{ textoVoz }}</p>
+
+        <div class="voz__acciones">
+          <p-button
+            [label]="leyendo ? etiquetaDetener : etiquetaEscuchar"
+            [icon]="leyendo ? 'pi pi-stop' : 'pi pi-play'"
+            size="small"
+            [outlined]="leyendo"
+            [disabled]="!acta"
+            (onClick)="alternarLectura()"
+          ></p-button>
+          <span class="voz__ayuda">{{ ayudaVoz }}</span>
+        </div>
+      </div>
+
       <div class="card">
         <h3 class="card__title">
           <i class="pi pi-sliders-h"></i> {{ etiquetaAjustes }}

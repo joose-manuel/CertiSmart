@@ -2,12 +2,12 @@ import { Component, computed, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
-import { SGA_SECCIONES_ABIERTAS } from '../../../const/layout.constants';
 import {
   SIDEBAR_ICONO_CHEVRON,
   SIDEBAR_LOGO_TITULO,
   SIDEBAR_NAV_LABEL,
   SIDEBAR_PERFIL_LABEL,
+  SIDEBAR_SECCIONES_ABIERTAS,
 } from '../const/sidebar.constants';
 import { SidebarService } from '../Services/sidebar.service';
 
@@ -27,7 +27,7 @@ export class SidebarComponent {
 
   private readonly url = signal(this.router.url);
   private readonly abiertos = signal<Record<string, boolean>>({
-    ...SGA_SECCIONES_ABIERTAS,
+    ...SIDEBAR_SECCIONES_ABIERTAS,
   });
 
   readonly entradas = computed(() =>

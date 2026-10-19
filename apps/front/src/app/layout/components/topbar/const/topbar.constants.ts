@@ -4,6 +4,10 @@ export const TOPBAR_TITULO_DEFECTO = environment.appName;
 
 export const TOPBAR_MENU_LABEL = 'Abrir menú de navegación';
 
+export const TOPBAR_PERIODO = 'Período Académico 2026-II';
+
+export const TOPBAR_BUSQUEDA_PLACEHOLDER = 'Buscar estudiante, acta o trámite...';
+
 export const TOPBAR_TEMA_CLARO = 'Cambiar a modo claro';
 export const TOPBAR_TEMA_OSCURO = 'Cambiar a modo oscuro';
 

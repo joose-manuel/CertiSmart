@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import { esSeccion, NavItem, NavSeccion } from '../../../Interface/layout.interface';
-import { SGA_MARCA, SGA_MENU, SGA_USUARIO } from '../../../const/layout.constants';
-import { EntradaMenuVista, HijoMenuVista } from '../Interface/sidebar.interface';
+import {
+  SIDEBAR_MARCA,
+  SIDEBAR_MENU,
+  SIDEBAR_USUARIO,
+} from '../const/sidebar.constants';
+import {
+  EntradaMenuVista,
+  esSeccion,
+  HijoMenuVista,
+  NavItem,
+  NavSeccion,
+} from '../Interface/sidebar.interface';
 
 /**
  * Arma el menú lateral a partir de la configuración y la url activa: resuelve
@@ -11,18 +20,18 @@ import { EntradaMenuVista, HijoMenuVista } from '../Interface/sidebar.interface'
 @Injectable({ providedIn: 'root' })
 export class SidebarService {
   get marca() {
-    return { ...SGA_MARCA };
+    return { ...SIDEBAR_MARCA };
   }
 
   get usuario() {
-    return { ...SGA_USUARIO };
+    return { ...SIDEBAR_USUARIO };
   }
 
   entradas(
     url: string,
     abiertos: Record<string, boolean>,
   ): EntradaMenuVista[] {
-    return SGA_MENU.map((entrada) =>
+    return SIDEBAR_MENU.map((entrada) =>
       esSeccion(entrada)
         ? this.seccion(entrada, url, abiertos)
         : this.enlace(entrada, url),

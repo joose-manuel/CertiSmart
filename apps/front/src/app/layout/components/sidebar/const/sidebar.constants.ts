@@ -23,7 +23,7 @@ export const SIDEBAR_MARCA: MarcaSga = {
 
 export const SIDEBAR_USUARIO: UsuarioShell = {
   nombre: 'Secretaría Académica',
-  dependencia: 'Sede Meléndez',
+  dependencia: 'Silvia ',
   iniciales: 'SA',
 };
 
@@ -52,13 +52,13 @@ export const SIDEBAR_MENU: NavEntrada[] = [
       },
       {
         id: 'verificador',
-        label: 'Verificador de Requisitos',
+        label: 'Verificador de Requisitos(NO funcional🔧)',
         icono: 'pi pi-shield',
         ruta: '/verificador',
       },
       {
         id: 'firma',
-        label: 'Firma y Sello Digital',
+        label: 'Firma y Sello Digital(NO funcional🔧)',
         icono: 'pi pi-verified',
         ruta: '/firma',
       },
@@ -71,19 +71,19 @@ export const SIDEBAR_MENU: NavEntrada[] = [
     hijos: [
       {
         id: 'agenda-academico',
-        label: 'Académico General',
+        label: 'Académico General (NO funcional🔧)',
         icono: 'pi pi-calendar-plus',
         ruta: '/agenda/academico',
       },
       {
-        id: 'agenda-grados',
-        label: 'Grados y Ceremonias',
+        id: 'agenda',
+        label: 'Agenda de corte (NO funcional🔧)',
         icono: 'pi pi-verified',
         ruta: '/agenda/grados',
       },
       {
         id: 'agenda-atencion',
-        label: 'Atención y Citas',
+        label: 'Atención y Citas (NO funcional🔧)',
         icono: 'pi pi-users',
         ruta: '/agenda/atencion',
       },
@@ -91,7 +91,7 @@ export const SIDEBAR_MENU: NavEntrada[] = [
   },
   {
     id: 'tramites',
-    label: 'Gestión de Solicitudes',
+    label: 'Gestión de Solicitudes (NO funcional🔧) ',
     icono: 'pi pi-table',
     ruta: '/tramites',
     badge: { valor: 12, tono: 'ambar' },
